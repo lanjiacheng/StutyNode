@@ -1,0 +1,9 @@
+总结：
+tomact默认使用iso编码，iso不支持中文，不指定的情况下，tomcat将字符串以iso表进行编码，然后发送到客户端
+服务端的编码可以通过两个方式来指定：1、response.setContentType("text/html;charset=utf8");2、response.setCharacterEncoding("utf-8");
+		第一种方法可以通过http头告诉客户端服务端使用的编码集，第二种则不能，此时，客户端再以对应的编码表去解码，即可正确显示字符串
+当tomcat不指定编码集，字符串被以iso表编码并发送到客户端，字符串中的中文无法正常显示
+
+以get方式请求时，url和参数放在请求头，参数值被urlEncode转码，到了服务端时，参数值被服务器自动以默认编码表进行解码（如果服务端和客户端编码表不一致，乱码，应以服务端编码表编码，以客户端编码表解码即可），
+		
+以post方式请求时，参数放请求体，参数也被urlEncode转码，但只需服务端通过request.setCharacterEncoding("utf-8")设置编码表为客户端默认编码表即可得到正确数据
