@@ -1,0 +1,11 @@
+一、
+LinkedList也是属于集合框架的一部分，它是List的子类，而List又是Collection的子类
+
+二、
+LinkedList的常见特有方法：
+JDK1.6前							JDK1.6后
+void addFirst(E e):将指定元素添加到列表开头（为空抛异常）	offerFirst(E e):功能同上，为空返回null
+void addLast(E e):将指定元素添加到列表结尾
+E getFirst():返回列表第一个元素					peekFirst():功能同上，为空返回null
+E getLast():返回列表最后一个元素
+E removeFirst():返回并删除第一个元素				pollFirst():同上，为空null

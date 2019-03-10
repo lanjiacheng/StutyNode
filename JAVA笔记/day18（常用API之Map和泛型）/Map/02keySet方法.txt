@@ -1,0 +1,11 @@
+Map集合是没有迭代器的，那么如何取出Map中的所有元素呢？
+原理：通过keySet方法获取map中所有的键所在的Set集合，再通过Set的迭代器获取每一个键
+	再对每一个键通过map的get方法获取其对应的值即可
+示例：
+Set<Integer> keySet=map.keySet();//获取键集
+Interator<Integer> it=keySet.iterator();//获取键集的迭代器
+while(it.hasNext()){
+	Integer key =it.next();
+	Sring value = map.get(key);
+	System.out.println(key+":"+value);
+}

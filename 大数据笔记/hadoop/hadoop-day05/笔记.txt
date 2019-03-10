@@ -1,0 +1,59 @@
+数据完整性
+------------
+	1.校验和
+		Checksum
+	2.CRC-32
+		cycle redundent check-32
+	3.指定校验和的字节数组长度
+		io.bytes.per.checksum=
+
+压缩
+------------
+	1.空间、时间优先
+		-1	//速度优先
+		-9	//空间优先
+	2.压缩格式
+		deflate
+		Gzip
+		bzinp2
+		LZO
+		LZ4
+		Snappy
+	3.codec
+代码示例：
+--------------------------------------------------------------------------------
+package com.ljc.myhadoop272;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.io.IOUtils;
+import org.apache.hadoop.io.compress.CompressionOutputStream;
+import org.apache.hadoop.io.compress.DefaultCodec;
+import org.apache.hadoop.io.compress.DeflateCodec;
+import org.apache.hadoop.util.ReflectionUtils;
+
+public class TestCompress {
+
+	public static void main(String[] args) throws Exception {
+		compressByDeflate();
+	}
+	public static void compressByDeflate() throws Exception{
+		//创建配置文件对象
+		Configuration conf = new Configuration();
+		conf.addResource("mycore-site.xml");
+		String codecStr = "org.apache.hadoop.io.compress.DeflateCodec";
+		//实例化压缩对象
+		Class<DeflateCodec> clazz = (Class<DeflateCodec>) Class.forName(codecStr);
+		DeflateCodec codec = ReflectionUtils.newInstance(clazz, conf);
+		//对输出流包装，产生新的压缩流
+		FileOutputStream fos = new FileOutputStream("e:/a.deflate");
+		CompressionOutputStream comOut = codec.createOutputStream(fos);
+		//写入流
+		IOUtils.copyBytes(new FileInputStream("e:/a.apk"), comOut, 1024);
+		
+	}
+
+}
+---------------------------------------------------------------------------------

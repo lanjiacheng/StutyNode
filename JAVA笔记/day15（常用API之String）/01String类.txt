@@ -1,0 +1,96 @@
+String类（自动导入）：
+一、字符串是一个特殊的对象
+
+二、字符串一旦初始化就不可一被改变
+
+三、创建字符创对象方法：
+1.String str="abc";
+一点说明：
+String str1="abc";
+String str2="abc";
+str1==str2的值为真，为什么：给str1赋值时创建"abc"并把它放到常量池，给str2赋值时现在常量池
+找"abc"，找到就把它的引用赋给str2，找不到就新创建一个"abc"。
+
+
+2.String str=new String("abc");
+一点说明：
+无论常量池中是否有"abc"对象，该语句都会创建一个新的"abc"对象，而且创建后放到堆内存中。
+String str=new String()等效于String str="";都是创建一个没内容的字符串对象
+
+四、String类的特点：
+
+1.字符串对象一旦初始化，就不会被改变
+
+2.String类覆写了Object类中的equals方法，建立了自己的比较标准，也就是不再通过地址来比较
+	而是通过字符串的内容来比较。
+
+五、构造方法：
+1.String(byte[] bytes):使用平台的默认字符集解码指定的byte数组，构造一个新的String
+	示例：byte[] b={65,66,67};
+		String str=new String(b);
+
+2.String(char ch):用字符数组中的字符作为内容来创建字符串
+
+3.String(char[] ch,int offset,int count):用字符数组中的部分字符作为内容创建String
+	期中offset是开始下标（数组），count是长度
+
+六、String的其他方法：
+
+获取：
+
+1. int length():返回字符串长度
+
+2.char charAt(int index):根据位置获取字符
+
+3.int indexOf(int ch):根据字符获取在字符串中第一次出现的位置
+  int indexOf(int ch,int fromIndex):从指定位置进行查找ch第一次出现的位置
+  int indexOf(String str):根据子字符串获取在字符串中第一次出现的位置
+  int indexOf(String str,int fromIndex):从指定位置进行查找str第一次出现的位置
+  入果字符串中没有要查找的内容，那么会返回-1
+
+  int lastIndexOf()之类的，与上面一一对应，只是查找方向相反，从后往前查，但是下标从第一个    开始
+
+4.String substring(int beginIndex,int endIndex):获取指定位置到指定位置的子字符串，
+  包括begin不包括end
+  String substring(int beginIndex):从指定位置开始，到结束，截取这段作为返回值
+
+转换：
+
+1.String[] split(String regex):将字符串按指定规则切割成多个字符数组
+	涉及到正则表达式，如用点切割应传递"\\."
+
+2.char[] toCharArray():将字符串全部转换成字符数组（java一字符两字节）
+
+3.byte[] getBytes():将字符串变成字符数组
+
+4.String toUpperCase():转成成大写
+  String toLowerCase():转换成小写
+
+5.String replace(char oldch,char newch):将新字符替换掉旧字符，返回替换后的
+  String replace(String s1,String s2):新字符串替换旧字符串，如没替换，返回原来
+
+6.String trim():将字符串两端空格去掉，返回新的
+
+7.String concat(String str):将字符串进行连接，返回新的
+
+8.String valueOf(基本类型 value):将基本数据类型转换成字符串，然后返回新的
+
+判断：
+
+1.boolean equals(Object obj):判断两字符串内容是否相同
+  boolean equalsIgnoreCase(String str):忽略大小写，判断内容
+
+2.boolean contains(String str):字符串知否包含指定字符串
+
+3.boolean startsWith(String str):是否以指定字符串开头
+  boolean endsWith(String str):是否以指定字符串结尾
+
+比较：
+
+1.int compare(String str):比较字符串，如果当前字符串小于str，返回负数，大于返回正书，等于返回0，
+			返回的值由第一次不同的字符的ASCII码之间的差距决定的。
+
+特别方法：
+
+1.String itern():如果常量池中有此字符串，返回常量池中的字符串引用，如果常量池中
+		，没有先在常量池中建立内容相同的字符串对象再返回

@@ -1,0 +1,37 @@
+使用字典代替switch语句：
+	def f1():
+	    pass
+	def f2():
+	    pass
+	def f3():
+	    pass
+	switcher = {
+	    0:f1,
+	    1:f2,
+	    2:f3
+	}
+	n = 0
+	switcher.get(n,f1)()	#如此即可执行
+
+列表推导式：
+	a = [1,2,3,4,5,6]
+	b = [i**3 for i in a if i > 2]		#得到一个新的list
+	b = {i**3 for i in a if i > 2}		#得到一个新的set
+
+字典推导式：
+	students = {
+	    '1':1
+	    '2':2
+	    '3':3
+	}
+	b = [key for key,value in students.items()]	#得到列表
+	c = {value:key for key,value in students.items()}	#得到字典
+
+None：
+	是一种特别的类型，意为“不存在”
+	None转换为字符串的话，就是False
+
+自定义对象与bool之间的转换：
+	默认转成True
+	但是对象内部有__bool__方法时，由这个方法返回的值决定
+	如果没有__bool__方法，有__len__方法返回值决定

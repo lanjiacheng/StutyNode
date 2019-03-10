@@ -1,0 +1,26 @@
+#!/bin/bash
+if [ $# -lt 1 ] ;then
+  echo no args
+  exit;
+fi
+
+#get first argument
+arg1=$1;
+cuser=`whoami`
+fname=`basename $arg1`
+
+dir=`dirname $arg1`
+if [ "$dir" = "." ] ;then
+  dir=`pwd`
+fi
+
+echo ------ rm $arg1 from localhost ------
+rm -rf $arg1
+echo
+
+for (( i=200;i<=500;i=i+100 )) ;
+do
+  echo ------rming $arg1 from s$i ------;
+  ssh s$i rm -rf $dir/$fname
+  echo
+done

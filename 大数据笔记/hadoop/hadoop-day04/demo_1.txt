@@ -1,0 +1,33 @@
+package hadoopdemo;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.hadoop.fs.FsUrlStreamHandlerFactory;
+
+public class TestFileSystem {
+	static {
+		//set Hadoop url sheme
+		URL.setURLStreamHandlerFactory(new FsUrlStreamHandlerFactory());
+	}
+
+	public static void main(String[] args) throws Exception {
+		String urlStr = "hdfs://ubuntu-01:8020/user/ljc/data/abc.txt";
+		URL url = new URL(urlStr);
+		InputStream is =url.openStream();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buf = new byte[1024];
+		int len =0;
+		while((len = is.read(buf))!=-1){
+			baos.write(buf, 0, len);
+		}
+		byte[] data = baos.toByteArray();
+		System.out.println(new String(data));
+		/*
+		也可如下读取：
+		IOUtils.copyBytes(is,System.out,2,true);
+	}
+
+}

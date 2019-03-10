@@ -1,0 +1,13 @@
+一、概述：
+堆中对象可以被存储到硬盘（持久化）,这样的操作称之为
+对象的序列化，被序列化的对象必须实现Serializable接口
+
+用到的流有：ObjectOutputStream和ObjectinputStream
+
+二、示例：
+
+ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("obj.object"));	//创建对象流要传入
+											//文件字节流
+oos.writeObject(new Person("小强",30));	//被序列化对象必须实现Serializable接口，一个流可以序列化多个对象
+					//到同一个文件中
+oos.close();

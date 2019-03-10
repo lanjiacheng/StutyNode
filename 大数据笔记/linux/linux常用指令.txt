@@ -1,0 +1,196 @@
+一、常用指令：
+sudo passwd		//修改root用户密码，刚安装linux系统时，root密码未设置，需要用当前账户密码设置
+su root			//切换root用户
+/			//根目录，/作为分隔符
+cd			//进入 change directory
+ls			//显示当前目录下的内容
+ls -l			//列表方式
+ls -al			//包含显示.开头的
+ls -alh			//-h : 人性化
+man xxx			//帮助
+xxx -h --help		//帮助
+ls --help | more	//
+	q		//quit 退出帮助界面
+clear			//清屏
+hostname		//查看主机名称
+nano /etc/hostname	//修改主机名称
+ifconfig		//查看ip地址等信息
+ls tab			//补全
+whoami			//动态查看当前用户名
+pwd			//显示h当前目录
+cd ~			//进入home目录
+
+ifconfig		//查看网络配置情况
+wget url		//wget http://www.baidu.com
+cat index.html		//查看文件 type:windows下的查看命令
+mkdir			//创建目录
+rmdir xx		//删除空目录
+rm -f -r xx		//删除文件和目录 -f:强制 -r -R:递归
+sudo reboot		//重启
+tree			//以树的方式展现目录结构
+find .			//查看当前目录（递归）
+touch a.txt		//创建文件
+cat			//查看文件
+mv			//移动文件
+echo xxx>> a.txt	//重定向输入，追加
+echo xxx > a.txt	//重定向输入，覆盖
+nano xxx		//打开命令行编辑器
+			//^+k	剪切一行
+			//^+u	恢复一行
+			//^+o	write out写入文件
+			//^+x	退出
+			//home	定位光标到行首
+			//end	定位光标到行尾
+			//pagedown	下翻
+			//pageup	上翻
+more			//分页查看
+head			//查看开头部分
+			//head -n 3 a.txt	//显示前三行，默认10行
+			//head -c 3 a.txt	//查看前3字节，默认10
+tail			//查看尾，具体同上
+cp a.txt ~/down/	//复制文件，如果目录不存在，需要创建目录
+ctrl + alt + f5		//打开新的会话
+ping ip			//测试网络联通情况
+sudo reboot		//重启
+uname -a		//查看unix name，内核等等
+file xxx.so		//查看文件类型等
+tar -xvzf		//	-x:extract，提取文件	-v:verbose，详细信息	
+				-z:filter，过滤		-f:file，指定文件
+tar -c a.txt -f a.tar	//将a.txt归档成a.tar文件
+gzip			//	-d:解压		-1:速度优先	-9:质量优先
+gunzip			//解压文件
+find . | grep xxx	//查找xxx相关的文件
+find .|xagrs grep -ri"ibm"	//查找含有 ibm串的
+ls | grep pig
+xxx | yyy		//管道符，前面命令的输出作为后面命令的输入
+``			//反引号，将反引号内的字符解析成命令执行
+ls *.txt | cp `xargs` myfolder/		//将*.txt文件复制到指定文件夹内
+xargs			//指代将前面的输出内容变成一行 
+grep			//过滤，将输入的内容经过指定方式过滤，在输出
+find ./ | grep txt | tar -cf my.tar `xagrs`		//查找指定文件然后将其归档成my.tar文件
+tar -xf filename	//解归档
+sudo mount /dev/cdrom /mnt/cdrom	//挂载cdrom光驱到/mnt/cdrom下
+sudo umount /dev/cdrom	//卸载设备
+sudo umount /mnt/cdrom	//卸载挂载目录也可以
+ln			//创建连接 link -s:符号链接  默认是硬链接
+	ln target link_name	//硬链接，相当于实时镜像，删除文件时，不会删除链接文件
+				//硬连接不允许对目录创建
+	ln -s target link_name	//符号链接，相当于快捷方式，可以对文件和目录创建
+cd -P xxx		//进入xxx连接对应的物理地址
+xxx &			//后台执行程序
+bg			//显示后台程序
+fg			//前台	fg %1
+jobs		//查看后台运行的作业
+kill %n		//杀死指定编号的作业
+kill -9 xxx	//杀死指定编号的作业
+ps -Af			//process show,显示进程信息
+			// -A : all 等价 -e -f :full output format
+			//-o :用户自定义显示那系列
+netstat -ano		//查看所有端口
+source /etc/enviroment	//使更新的配置信息立即生效
+cut -c N-M		//-c :按照字符数计算 n-m 从第n个到第m个 n-: n到行尾 -m :行首到第m个 n:第n个
+sudo fdisk -l		//查看分区表
+	sudo fdisk /dev/sda		//管理分区
+df			//查看磁盘空间
+basename /bin/ping	//ping ，提取文件名
+dirname /bin/ping	// /bin ，提取目录名
+$(command)		//命令,等同于反引号
+$(xxx$(xxx))		//嵌套
+cd -			//后退
+cd -n			//后退n步
+export a=xxx		//设置环境变量
+	export PATH=${PATH}:.
+	export env=${env:-$evn2}	//取env，不存在就取env2
+env	name=value	[cmd]		//为后面的指令设置变量
+env			//查看所有环境变量
+chmod u+x		//增加user的执行权
+chmod ug+x		//添加user和group的执行权
+chmod ugo+x		//
+chmod a+x		//全部添加执行权限
+chmod ug-rw		//减少权限
+chmod 777 a.txt		//所有用户添加全部权限,每个的权限都是7
+
+文件夹			//r:读取文件夹内部文件列表 w:添加或删除文件 x:是否能够进入
+
+user			//只有一个primary group，多个secondary group
+
+adduser		//添加账户	adduser --home /home/ubuntu2 --uid 3000 ubuntu2
+useradd			//添加账户（底层）
+deluser --remove-home ubuntu2		//删除账户
+nano passwd		//etc下，编辑密码文件
+脚本内 $0是本命令 $1是第一个参数 $2是第二个参数 如：echo hello $1 $2
+
+/**环境变量，windows不区分大小写，linux区分大小写**/
+查看 path
+echo	$PATH	//OK
+echo	${PATH}	//OK
+echo	"$PATH"	//OK
+
+which xxx	//在PATH下查看命令xxx的存放目录
+whereis xxx	//查看xxx命令的可执行文件和配置文件和帮助文档的目录
+
+-----------------------------
+Linux命令存储地址
+/sbin/bin		//鼻祖
+/usr/bin/usr/sbin	//各个linux产品{ubuntu | rehat | centOS}
+/usr/local/		//用户本身
+
+
+-----------------------------
+owner + group + other
+[权限]
+r		//read		读
+w		//write		写
+x		//execute	执行
+[文件类型]
+d		//目录
+l		//连接（快捷方式）
+-		//文件
+b		//block
+
+瑞士军刀
+----------------------------------
+netcat :
+nc -l 1234 &	//后台启动服务器，监听端口1234
+nc ip port	//连接指定服务器	-v -w 2 -z 2000-4000	//详细信息，设置超时，扫描端口范围
+nc -l 1234 > readme.txt		//重定向接收数据到文件，把接收到的数据存放到指定文件
+nc localhost 1234 < readme.txt	//重定向输入，将指定文件传输到连接的服务器上
+
+------------------------------
+脚本语句:
+----------------------------------------
+#!/bin/bash			//说明
+if[ $1 -lt 1 ] ; then		//if语句开始，判断通过执行then后的语句。[]两边带空格
+...
+else
+echo				//打印
+...
+fi				//if语句结束
+------------------------------------------
+				//-gt：大于 , -lt:小于  less than
+#comments			//注释
+=		//相等
+-eq		//相等
+$#		//提取参数个数
+$n		//提取第n个参数
+$0		//提取命令
+$?		//存放的是上次命令行执行的结果,一般成功返回0，反之返回1
+$@		//输出所有参数
+-e		//exists 判断文件（夹）是否存在		-e $1 ": 判断第一个参数（文件）是否存在
+-f		//判断是不是文件	usage: -f xxx
+-d		//判断是否是目录
+shift		//使参数列表向左移一位，最左边被删掉
+a&&b		//a成功后执行b
+a || b		//a失败后执行b
+a ; b		//多命令一起，无逻辑
+(a ; b)		//组合命令，只在当前目录下执行，不切换目录
+-------------------------------------------
+for (( i=1;i<10;i++ ));
+do
+...;
+done
+-------------------------------------------
+脚本基本控制语句：
+if
+for
+while

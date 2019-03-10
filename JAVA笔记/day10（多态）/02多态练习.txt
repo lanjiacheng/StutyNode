@@ -1,0 +1,46 @@
+ /*
+一个体现多态性的实例：
+*/
+abstract class Animal
+{
+	abstract void eat();//动物都有吃的行为，但是怎样吃吃什么不知道，不具体。所以用abstract修饰
+
+}
+
+class Dog extends Animal
+{
+	void eat()//此处实现了狗的eat方法
+	{
+		System.out.println("啃骨头");
+	}
+	void lookHome()//此处定义了狗的特有方法
+	{
+		System.out.println("看家");
+	}
+}
+
+class Cat extends Animal
+{
+	void eat()//此处实现了猫的eat方法
+	{
+		System.out.println("吃鱼");
+	}
+	void catchMouse()
+	{
+		System.out.println("抓老鼠");//此处定义了猫的特有方法抓老鼠
+	}
+}
+class DuoTaiDemo 
+{
+	public static void main(String[] args) 
+	{
+		Dog d=new Dog();
+		Cat c=new Cat();
+		eat(d);
+		eat(c);
+	}
+	public static void eat(Animal a)
+	{
+		a.eat();
+	}
+}

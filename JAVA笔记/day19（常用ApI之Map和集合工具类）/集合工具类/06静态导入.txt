@@ -1,0 +1,2 @@
+import static java.util.Collections.*;//静态导入，其实导入的就是类中的静态成员，导入后，直接使用，
+					不用加类名

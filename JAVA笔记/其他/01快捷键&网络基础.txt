@@ -1,0 +1,22 @@
+一、dos指令
+1. ipconfig		//查看IP地址
+2. ping+ip地址		//查看网络联通情况
+	ping 192.168.0.10
+3. 配置hosts文件，绕过dns解析
+	c:\Windows\System32\drivers\etc\hosts文件
+	[host]
+	...
+	192.168.0.67 xy
+	...
+4. set			//列出所有环境变量
+5. 防火墙
+	控制面板--防火墙--关闭打开
+6. 网卡
+7. netstat -ano		//查看活动链接
+
+二、windows运行指令
+1. services.msc		//服务
+2. notepad		//记事本
+3. calc			//计算机
+4. mspaint		//画图
+5. regedit		//注册表

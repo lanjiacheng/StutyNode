@@ -1,0 +1,57 @@
+package cn.itcast.gui.p1.awt;
+
+import java.awt.Button;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class FrameDemo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		Frame f = new Frame("my frame");	//创建一个窗体
+//		f.setSize(500, 400);			//设置窗体大小，横轴像素值，纵轴像素值
+//		f.setLocation(400, 200);		//设置窗口默认位置，像素值
+		f.setBounds(400, 200, 500, 400);	//设置窗口默认位置、大小	
+		f.setLayout(new FlowLayout());		//设置流式布局
+		
+		Button but  = new Button("一个按钮");	//创建一个按钮
+		
+		f.add(but);				//将按钮添加到窗体中。 
+		
+		
+		f.addWindowListener(new WindowAdapter() {	//添加窗口事件监听器，该监听器以内部类形式创建
+
+			@Override
+			public void windowClosing(WindowEvent e) {	//覆盖此方法，当此方法对应事件发生时，此方法
+									//自动执行，无需调用
+									//期中e接收的是将该事件打包成的对象，可用
+				
+//				System.out.println("closing......."+e);
+				System.exit(0);
+			}
+			
+		});
+		
+		
+		//在按钮上加上一个监听。
+		but.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {		//活动监听方，按钮活动时触发此方法
+//				System.out.println("button run .....");
+				System.exit(0);
+			}
+		});
+		
+		f.setVisible(true);
+		System.out.println("over");
+	}
+
+}

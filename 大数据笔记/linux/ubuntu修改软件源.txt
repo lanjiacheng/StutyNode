@@ -1,0 +1,20 @@
+ubuntu修改软件源（国内网络源）
+------------------------------------------------------
+cd /etc/apt
+cp sources.list sources.list.bak	//备份原来的软件源
+sudo nano /etc/apt/sources.list		//修改软件源地址，复制粘贴
+sudo apt-get update			//检索更新最新软件源列表，一般安装前执行此操作
+sudo apt-get upgrade			//升级软件包
+
+ubuntu修改软件源（自定义本地源）
+------------------------------------------------------
+cd /etc/apt
+cp sources.list sources.list.bak	//备份原来的软件源
+//挂载iso文件
+sudo nano /etc/apt/sources.list		//修改软件源地址，指向/mnd/cdrom下
+[/etc/apt/sources.list]
+deb file:///mnt/cdrom/ ./
+sudo apt-get update			//检索更新最新软件源列表
+sudo apt-get upgrade			//升级软件包
+sudo apt-get install ubuntu-desktop	//安装ubuntu桌面软件
+//重启

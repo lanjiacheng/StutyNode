@@ -1,0 +1,18 @@
+在ubuntu上安装jdk
+1.下载jdk-8u65-linux-x64.tar.gz
+2.将jdk...tar.gz文件tar开
+	$>tar -xzvf jdk...tar.gz
+3.移动tar开的jdk目录到/soft下
+	$>mv jdk1.8.0_65 /soft
+4.测试安装成功
+	$>cd /soft/jdk-1.8.0_65/
+	$>./java -version
+5.如果出现java的版本信息就是jdk安装成功
+--------------------------------------------------
+配置环境变量
+1.编辑/etc/enveriment
+	JAVA_HOME=
+	PATH="...:/soft/jdk/bin"
+2.source /etc/
+3.reboot
+4.eclipse_home/.eclipse &		//后台运行eclipse

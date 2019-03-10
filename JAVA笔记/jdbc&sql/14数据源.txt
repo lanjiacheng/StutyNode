@@ -1,0 +1,6 @@
+数据源：DataSource
+	1.池化模式
+	2.ConnectionPoll
+第三方数据源：
+	1.apache
+	2.c3p0

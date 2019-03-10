@@ -1,0 +1,7 @@
+一、java反射：
+1.java.lang.reflect
+2.java.lang.Class : 类类，类描述符，描述的是外观
+3.java.lang.reflect.Method : 方法描述符，描述方法的特征
+4.java.lang.reflect.Field : 字段，描述字段的特征
+5.java.lang.reflect.Constructor : 构造器
+6.java.lang.reflect.Modifier : 修饰符

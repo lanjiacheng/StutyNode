@@ -1,0 +1,31 @@
+/*
+需求：实现二分法查找
+原理：不断缩小范围，直到范围缩小直到找到该数，否则结束。
+*/
+class  Exercise05
+{
+	public static void main(String[] args) 
+	{
+		int[] arr=new int[] {1,2,3,4,5,6,7,8,9,10};//二分法只对一个有序的数组有效
+		int index=halfSearch(arr,8);
+		System.out.println(index);
+	}
+	public static int halfSearch(int[] arr,int key)
+	{
+		int max,min,mid;
+		min=0;
+		max=arr.length-1;
+		mid=(max+min)/2;
+		while(key!=arr[mid])		//此处循环条件，找到则退出，找不到则结束
+		{
+			if(key<arr[mid])
+				max=mid-1;
+			else if(key>arr[mid])
+				min=mid+1;
+			if(min>max)
+				return -1;
+			mid=(min+max)/2;
+		}
+		return mid;
+	}
+}

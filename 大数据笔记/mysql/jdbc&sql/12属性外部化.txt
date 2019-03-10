@@ -1,0 +1,11 @@
+一、在jdbc编程中，常常用到属性外部化
+属性外部化：把一些常用到的属性信息存放到类路径根目录下（bin下）
+
+那么如何使用呢？
+
+动态加载：
+Properties prop=new Properties();
+InputStream is=DBUtil.class.getClassLoader().getResourceAsStream("jdbc.properties");
+prop.load(is);
+//说明：DBUtil是项目中的需要用到的类，.class获取Class类，.getClassLoader()获取类加载器，
+getResourceAsStream("jdbc.properties")是根据文件名获取文件的字节流。

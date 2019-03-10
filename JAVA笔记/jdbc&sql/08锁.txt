@@ -1,0 +1,9 @@
+一、read锁（表级锁）：
+1.上锁
+	mysql>lock tables stus read;	//上锁后，其他（包括自己）线程不能再对此表进行除读之外的操
+					//作（能读不能//写）
+2.解锁
+	mysql>unlock tables;
+
+二、write锁（表级锁）
+	用法同上

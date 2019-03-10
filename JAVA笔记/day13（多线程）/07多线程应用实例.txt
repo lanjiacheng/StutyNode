@@ -1,0 +1,40 @@
+/*
+通过多线程的方法实现多窗口同时卖票的问题
+*/
+
+class Ticket implements Runnable
+{
+	private int num=10;
+	public void run()
+	{
+		while(true)
+		{
+			if(num>0)
+				System.out.println(Thread.currentThread().getName()+"..."+num--);
+			else
+				break;
+		}
+	}
+}
+
+class TicketDemo
+{
+	public static void main(String[] args)
+	{
+		Ticket t=new Ticket();
+		Thread t1=new Thread(t);
+		Thread t2=new Thread(t);
+		//Ticket t2=new Ticket();
+		t1.start();
+		//t1.start();		//一个线程不能开启多次，就算该线程运行结束了，也不能再次接着启动
+							//这里的线程是指Thread或Thread类创建的对象，如果是多个线程，那么
+							//可以多个线程并发运行
+		t2.start();
+	}
+}
+
+/*
+如果想对一个run方法（一个任务）同时运行，就是想把这个方法放到不同多个线程中去执行
+那么可以通过继承Runnable接口，再用实现该接口的类建立多个线程对象，然后再开始多个线程对象
+就可以达到目的
+*/

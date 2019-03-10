@@ -1,0 +1,22 @@
+		// 创建容器
+		StringBuilder sb = new StringBuilder();
+
+		// 获取键盘读取流
+		InputStream in = System.in;
+
+		// 定义变量记录读取到的字节数，并循环获取
+		int ch = 0;
+		while ((ch = in.read()) != -1) {
+			// 在存储之前要判断是否是换行标记，因为换行标记不存储
+			if (ch == '\r')
+				continue;
+			if (ch == '\n') {
+				String temp = sb.toString();
+				if ("over".equals(temp))
+					break;
+				System.out.println(temp.toUpperCase());
+				sb.delete(0, sb.length());
+			}
+			else
+			//降读到的字节存储到缓冲区
+				sb.append((char)ch);

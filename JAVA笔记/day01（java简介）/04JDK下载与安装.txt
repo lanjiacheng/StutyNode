@@ -1,0 +1,2 @@
+www.oracle.com
+java.sun.com

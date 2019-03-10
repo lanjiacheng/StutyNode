@@ -1,0 +1,31 @@
+内置函数：
+	round(x,n)：保留小数点后n位
+	id()：查看内存地址
+
+查看内置函数帮助：
+	help(function)
+
+查看python之禅：
+	import this
+
+函数定义：
+	def funcname(parameter_list):
+	    pass
+	    return xxx		#没有return语句默认返回None
+	或
+	def funcname(a=1,b=2,c)：这样定义带默认参数值的函数，调用时可不用传入默认参数的值
+		且默认参数必须在必须参数之后
+	说明：
+		函数定义也是一个语句，是一个定义语句，执行本模块或者导入本模块时，这些定义语句
+		会被执行，但是不会执行函数里面的逻辑代码，只有调用函数时才会执行函数内部的逻辑代码
+		但是函数调用必须在函数定义之后
+		同名函数，后面的函数会替换前面的函数
+
+		return语句可以返回多个参数，调用方接受到的将会是一个元组（tuple）
+
+函数调用：
+	fucname(x=1,y=2)：指定关键字参数来传递参数来调用
+
+设置python运行环境：
+	import sys
+	sys.setxxx(xxx)

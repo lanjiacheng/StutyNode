@@ -1,0 +1,28 @@
+一、虚拟机底层对异常的处理过程：
+当java运行出现异常时，就会在出现异常的方法中建立和封装一个异常对象，
+然后把异常对象抛出给调用该方法的函数（一般都是主函数），如果主函数没有
+设置处理机制，那么该异常对象又会被主函数抛出给虚拟机，由虚拟机来处理，
+虚拟机是如何处理的呢？就是打印异常相关信息，然后结束程序
+
+二、可以手动自定义抛出异常对象，例如
+throw new ArrayIndexOutOfBoundsException(字符串或整型数值（越界的下标）)
+注意：如果建立异常对象时传递的参数是字符串，那么虚拟机处理时会直接打印出字符串
+	如果建立对象时传递的是整型参数，那么虚拟机处理时会前面加上一提示，再加上整型参数（下标）
+
+例如：
+创建并抛出对象时传递的是字符串"Error"（默认Exception类的构造函数只能接收字符串或者不接收）
+，虚拟机打印如下:
+
+Exception in thread "main" FuShuIndexException: Array index out of range:-5
+	at Demo.method(Demo.java:10)
+	at Demo.main(Demo.java:5)
+
+不传递字符串参数时虚拟机打印如下：
+
+Exception in thread "main" FuShuIndexException
+	at Demo.method(Demo.java:10)
+	at Demo.main(Demo.java:5)
+
+Exception的默认toString()方法返回的是：
+Exception: ljc
+(lic创建对象时传递的字符串参数)

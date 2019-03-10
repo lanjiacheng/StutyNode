@@ -1,0 +1,33 @@
+多线程中涉及的单例设计模式问题及解决方法：
+
+//饿汉式：
+class Single
+{
+	private static final Single s=new Single();
+	private Single(){}
+	private static Single getInstance()
+	{
+		return s;
+	}
+}
+//饿汉式涉及多线程时，并没有安全隐患问题
+
+
+//懒汉式：
+class Single
+{
+	private static Single s=null;
+	private Single(){};		//把构造方法私有化，防止创建多对象
+	public static Single getInstance()
+	{
+		if(s==null)		// 这里的判断是为了提高效率
+		{
+			synchronized(Single.class)	//getClass不能用，因为它是非静态
+			{
+				if(s==null)	//这里的判断是为了保证对象的单一性
+					s=new Single();
+			}
+		}
+		return s;
+	}
+}

@@ -1,0 +1,66 @@
+//可以将一个已存在的或者不存在的文件或者文件夹或者目录封装成file对象
+
+一、File类的构造函数如下：
+
+File f1=new File("c:\\a.txt");
+File f2=new File("c:\\","a.txt");
+File f=new File("c:\\");
+File f3=new File(f,"a.txt");	//等价于f2
+File f4=new File("c:"+File.separator+"abc"+File.separator+"a.txt");
+
+二、常见方法：
+1.获取：
+	1.1获取文件名称：getName()
+	1.2获取文件路径：相对路径getPath()、绝对路径：getAbsolutePath()
+	1.3获取文件大小：length()，返回long
+	1.4获取修改时间：lastModified()
+	1.5获取父目录：getParent()	//如果以相对文件名创建对象，父目录为空
+
+2.创建余删除：
+	文件：
+		创建：File file = new File("file.txt");	file.createNewFile();
+		删除：file.delete();
+	文件夹：
+		创建：单层目录：File dir = new File("abc");	dir.mkdir();
+			多层目录：File dir = new File("abc\\a\\b\\c");	dir.mkdirs();
+		删除：dir.delete();	//如果创建对象时用的书多层目录，那么删除的是最定层的文件架（c）
+
+3.判断：
+	是否存在：exists();
+	是否是文件：isFile();		//如不存在，直接返回false
+	是否是文件夹：isDirectory();	//不存在返回false
+
+4.重命名：
+	File f1 = new File("c:\\9.mp3");
+	File f2 = new File("c:\\a.mp3");
+	File f3 = new File("d:\\aa.mp3");
+	f1.renameTo(f2);	//重命名效果
+	f1.renameTo(f3);	//剪切效果
+
+5.其他特殊方法：
+	获取系统根目录（所有盘符）：
+		File[] files = File.listRoots();
+		for(File file : files){
+			System.out.println(file);
+		}
+
+	获取存储空间信息：
+		剩余空间：File file = new File("d:\\");		file.getFreeSpace();
+		全部空间：file.getTotalSpace();
+		虚拟机可用空间：file.UsableSpace();
+
+	获取目录内的文件名（包含隐藏文件）：
+		String[] names = file.list();
+		for(String name : names){
+			System.out.println(name);
+		}	//一些说明：调用list方法的File对象中封装的必须是目录，否则会发
+			//NullPointerException异常，如果访问的是系统及目录也会发生空指针异常
+			//如果目录存在但是没有内容，会返回一个数组，但是长度为0
+		String[] names = file.list(new FilterByJava());	//此方法加入过滤器，实现过滤功能
+
+	获取目录内的文件名的File对象：
+		File dir = new File("c:\\");
+		File[] files = dir.listFiles(new FilterByHidden());	//过滤器2
+		for(File file : files){
+			System.out.println(file);
+		}

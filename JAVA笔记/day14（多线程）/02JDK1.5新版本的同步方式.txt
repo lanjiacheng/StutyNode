@@ -1,0 +1,158 @@
+一、JDK1.5以后对同步的新实现方式、
+
+JDK1.5以后将同步和锁（即synchronized(对象)）封装成了对象，并将操作锁的隐式方法定义到了对
+象中，将隐式动作变成显示动作，就是说，现在的锁不仅是一个锁，而且还包含了自身的操作锁的方
+法，同时，这个锁本身又可以拥有多个检测器，每个监测器都有自己的线程池和await、signal、
+signalAll方法，来控制这个检测器所属于的锁上的线程状态，就是可以把线程放到自己的线程池中
+，也可以把它从自己的线程池中取出。
+
+二、Lock接口：
+	它的出现，代替了同步代码块或者同步函数。将同步的隐式操作变成显示锁操作。
+	同时更为灵活，可以在一个锁上加上多组检测器。
+获取该接口对象方法：java.util.concurrent.locks.Lock=new java.util.concurrent.locks.ReentrantLock();
+
+接口中常见的方法：
+lock():获取锁
+unlock():释放锁，通常需要定义在finally代码块中
+
+使用示例：
+import java.util.concurrent.lock.*;
+Lock lock=new ReentrantLock();		//通过实现锁接口的子类来建立锁接口的对象
+lock.lock();		//显示锁上，除了当前线程，其他线程进不来
+try
+{
+	//需要被同步的代码
+}
+finally
+{
+	lock.unlock();	//显示释放锁
+}
+
+三、Condition接口：
+	它的出现替代了Object中的wait notify notifyAll方法
+	将这些检视器方法单独进行了封装，变成Condition监视器对象
+	可以与任意锁进行组合
+获取该接口对象方法：Condition con=new Lock().newCondition();
+
+该接口常见方法：
+await();
+signal();
+signalAll();
+
+使用示例：
+import java.util.concurrent.locks.*;
+Condition con=lock.newCondition();
+lock.lock();
+//以下同步代码部分
+con.await();
+con.signal();
+//以上同步代码部分
+lock.unlock()
+
+说明一点：
+Lock Condition ReentrantLock这些类都是在java.util.concurrent.locks.*;里面的的。
+而Thread Runnable 类或接口是隐式导入的
+wait await sleep方法都可能抛出InterruptException异常，要么捕捉，要么声明
+
+
+生产者消费者示例代码：
+
+import java.util.concurrent.locks.*;
+
+class Resource	
+{
+	private String name;	//资源名称
+	private int count =1;	//资源编号从1开始
+	private boolean flag =false;	//资源库状态，有就是true，无就是false
+	Lock lock =new ReentrantLock();
+	Condition producer_con=lock.newCondition();
+	Condition consumer_con=lock.newCondition();
+	//定义输入资源的方法
+	public void set(String name)
+	{
+		lock.lock();
+		try
+		{
+			while(flag)		//用while判断标记，解决了获取执行权后知否要运行的问题
+				try{producer_con.await();}catch(InterruptedException e){}
+			this.name=name+count;
+			count++;
+			System.out.println(Thread.currentThread().getName()+"...生产..."+this.name);
+			flag=true;
+			consumer_con.signal();		//notify解决了可能唤醒不到对方线程问题
+		}
+		finally
+		{
+			lock.unlock();
+		}
+	}
+
+	//定义输出资源的方法
+	public void out()
+	{
+		lock.lock();
+		try
+		{
+			while(!flag)
+				try{consumer_con.await();}catch(InterruptedException e){}
+			System.out.println(Thread.currentThread().getName()+"...消费..."+this.name);
+			flag=false;
+			producer_con.signalAll();
+		}
+		finally
+		{
+			lock.unlock();
+		}
+	}
+}
+
+class Producer implements Runnable
+{
+	private Resource r;
+	Producer(Resource r)
+	{
+		this.r=r;
+	}
+	public void run()
+	{
+		while(true)
+		{
+			r.set("烤鸭");
+		}
+	}
+}
+
+class Consumer implements Runnable
+{
+	private Resource r;
+	public Consumer(Resource r)
+	{
+		this.r=r;
+	}
+	public void run()
+	{
+		while(true)
+		{
+			r.out();
+		}
+	}
+}
+
+class Demo
+{
+	public static void main(String[] args)
+	{
+		Resource r=new Resource();
+		Producer pro=new Producer(r);
+		Consumer con=new Consumer(r);
+
+		Thread t1=new Thread(pro);
+		Thread t2=new Thread(pro);
+		Thread t3=new Thread(con);
+		Thread t4=new Thread(con);
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
+	}
+}

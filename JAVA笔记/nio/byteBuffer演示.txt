@@ -1,0 +1,60 @@
+package Buffer;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+
+public class ByteBufferDemo {
+
+	public static void main(String[] args) throws Exception {
+
+		test_1();
+		test_2();
+	}
+
+	private static void test_2() throws IOException {
+		// 创建字节缓冲区
+		ByteBuffer buf = ByteBuffer.allocateDirect(1024 * 1024 * 100);
+		// 创建一个输出流
+		FileOutputStream fos = new FileOutputStream("e://b2.apk");
+		FileChannel dstChannel = fos.getChannel();
+		// 创建一个输入流
+		FileInputStream fis = new FileInputStream("e://a.apk");
+		FileChannel srcChannel = fis.getChannel();
+		long startTime = System.currentTimeMillis();
+		while (srcChannel.read(buf) != -1) {
+			buf.flip(); // 将limit放到当前位置，将passion放到开头位置，读取的范围是position到limit前一个位置
+			dstChannel.write(buf);
+			buf.position(0);
+		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("take tiem2 : " + (endTime - startTime));
+		srcChannel.close();
+		dstChannel.close();
+	}
+
+	private static void test_1() throws FileNotFoundException, IOException {
+		// 创建字节缓冲区
+		ByteBuffer buf = ByteBuffer.allocate(1024 * 1024 * 100);
+		// 创建一个输出流
+		FileOutputStream fos = new FileOutputStream("e://b1.apk");
+		FileChannel dstChannel = fos.getChannel();
+		// 创建一个输入流
+		FileInputStream fis = new FileInputStream("e://a.apk");
+		FileChannel srcChannel = fis.getChannel();
+		long startTime = System.currentTimeMillis();
+		while (srcChannel.read(buf) != -1) {
+			buf.flip(); // 将limit放到当前位置，将passion放到开头位置，读取的范围是position到limit前一个位置
+			dstChannel.write(buf);
+			buf.position(0);
+		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("take tiem1 : " + (endTime - startTime));
+		srcChannel.close();
+		dstChannel.close();
+	}
+
+}

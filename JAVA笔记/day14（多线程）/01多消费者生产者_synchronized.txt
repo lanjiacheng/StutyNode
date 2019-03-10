@@ -1,0 +1,89 @@
+/*
+多生产者多消费则问题之同步代码块或同步函数解决办法
+*/
+
+/*
+定义资源类，这个类包括了资源的名称和资源的数量，
+同时，把输入资源和输出资源的方法都定义到这个类中，
+因为这些方法可以看做是属于这个类的
+*/
+class Resource	
+{
+	private String name;	//资源名称
+	private int count =1;	//资源编号从1开始
+	private boolean flag =false;	//资源库状态，有就是true，无就是false
+
+	//定义输入资源的方法
+	public synchronized void set(String name)
+	{
+		while(flag)		//用while判断标记，解决了获取执行权后知否要运行的问题
+			try{this.wait();}catch(InterruptedException e){}
+		this.name=name+count;
+		count++;
+		System.out.println(Thread.currentThread().getName()+"...生产..."+this.name);
+		flag=true;
+		notifyAll();		//notify解决了可能唤醒不到对方线程问题
+	}
+
+	//定义输出资源的方法
+	public synchronized void out()
+	{
+		while(!flag)
+			try{this.wait();}catch(InterruptedException e){}
+		System.out.println(Thread.currentThread().getName()+"...消费..."+this.name);
+		flag=false;
+		notifyAll();
+	}
+}
+
+class Producer implements Runnable
+{
+	private Resource r;
+	Producer(Resource r)
+	{
+		this.r=r;
+	}
+	public void run()
+	{
+		while(true)
+		{
+			r.set("烤鸭");
+		}
+	}
+}
+
+class Consumer implements Runnable
+{
+	private Resource r;
+	public Consumer(Resource r)
+	{
+		this.r=r;
+	}
+	public void run()
+	{
+		while(true)
+		{
+			r.out();
+		}
+	}
+}
+
+class Demo
+{
+	public static void main(String[] args)
+	{
+		Resource r=new Resource();
+		Producer pro=new Producer(r);
+		Consumer con=new Consumer(r);
+
+		Thread t1=new Thread(pro);
+		Thread t2=new Thread(pro);
+		Thread t3=new Thread(con);
+		Thread t4=new Thread(con);
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
+	}
+}
+

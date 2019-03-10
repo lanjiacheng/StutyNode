@@ -1,0 +1,35 @@
+一、存储过程
+
+说明：存储过程是在终端下定义，然后可以远程调用的在服务器内计算的一个过程
+
+1.终端下修改结束符
+	delimiter //
+2.create procedure procAdd(in|out|inout a int,in b int,out c int)
+	begin
+		select a+b into c;
+	end
+	//
+
+3.大量插入演示：
+delimiter //
+create procedure procBatchInsert(in n int)
+begin
+	DECLARE i int;
+	set i=0;
+	while i<n do
+		insert into stus(id,name) values(1,concat('tom',1));
+		set i=i+1;
+	end while;
+end
+//
+
+二、java编程：
+
+Connection conn + DriverManager.getConnection(url,username,password);
+//存储过程调用方式  "{call procName(?,?,?,...)}"
+CallableStatement cst = conn.prepareCall("{call procAdd(?,?,?)}");
+cst.setInt(1,1);		//绑定输入参数
+cst.setInt(1,1);		//
+cst.registerOutParameter(3,Types.INTEGER);	//注册输出类型
+cst.execute();			//执行存储过程
+int r=cst.getInt(3);

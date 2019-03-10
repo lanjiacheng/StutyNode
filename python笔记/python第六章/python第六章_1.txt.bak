@@ -1,0 +1,14 @@
+条件控制语句：
+	if else
+	没有花括号，用四个空格来缩进，用缩进来表示从属关系，形如：
+	if True :
+	    xxx
+	else :
+	    xxx
+	或
+	elif True:
+	    xxx
+
+其他函数：
+	input()：标准输入
+	print()：标准输出

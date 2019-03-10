@@ -1,0 +1,160 @@
+package com.ljc.myhadoop272;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.BlockLocation;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.FileUtil;
+import org.apache.hadoop.fs.LocalFileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IOUtils;
+
+public class TestFileSystem_1 {
+
+	public static void main(String[] args) throws Exception {
+		// read();
+		// readInfo();
+		// append();
+		// listFile();
+		replicasFactor();
+	}
+
+	// 通过API修改副本数量（复制因子）
+	public static void replicasFactor() throws Exception {
+		Configuration conf = new Configuration();
+		conf.set("fs.defaultFS", "hdfs://ubuntu-01:8020/");
+		FileSystem fs = FileSystem.get(conf);
+		Path path = new Path("hdfs://ubuntu-01:8020/user/ljc/data/a.apk");
+		// 创建文件时修改指定副本数量（复制因子）
+		FSDataOutputStream out = fs.create(path, (short) 2);
+		IOUtils.copyBytes(new FileInputStream("e:/a.apk"), out, 1024);
+	}
+
+	// 通过PathFilter应用正则表达式对路径进行过滤
+	public static void pathFilter() throws Exception {
+		Configuration conf = new Configuration();
+		// conf.addResource("mycore-site.xml");
+		conf.set("fs.defaultFS", "hdfs://ubuntu-01:8020/");
+		FileSystem fs = FileSystem.get(conf);
+		FileStatus[] fsts = fs.globStatus(new Path("/2007/*/*"), new RegexEcludePathFileter("^.*/2007/12/31$"));
+
+	}
+
+	// 通过API获取文件列表
+	public static void listFile() throws Exception {
+		Configuration conf = new Configuration();
+		// conf.addResource("mycore-site.xml");
+		conf.set("fs.defaultFS", "hdfs://ubuntu-01:8020/");
+		FileSystem fs = FileSystem.get(conf);
+		String file = "hdfs://ubuntu-01:8020/user/ljc/data/";
+		Path path = new Path(file);
+		FileStatus[] fsts = fs.listStatus(path);
+		for (FileStatus fst : fsts) {
+			System.out.println(fst.getPath() + " isFile() = " + fst.isFile());
+		}
+		System.out.println("---------------------------------");
+		Path[] paths = FileUtil.stat2Paths(fsts);
+		for (Path path0 : paths) {
+			System.out.println(path);
+		}
+	}
+
+	// 通过API实现设置文件配置信息操作
+	public static void customReplicationNum() throws Exception {
+		Configuration conf = new Configuration();
+		conf.set("dfs.replication", "4"); // 设置副本数为4,当前会话有效
+		conf.set("dfs.blocksize", "" + 1024 * 200); // 设置块大小为200k，当前会话
+		/*
+		 * 此操作需要在集群中执行，客户端不能操作 集群配置文件hdfs-site.xml下：
+		 * dfs.namenode.fs-limits.min-block-size=10240
+		 * conf.set("dfs.namenode.fs-limits.min-block-size",
+		 * ""+1024*10);//设置块最小值
+		 */
+		FileSystem fs = FileSystem.get(conf);
+		String file = "hdfs://ubuntu-01:8020/user/ljc/data/abc.txt";
+		Path path = new Path(file);
+		FSDataOutputStream out = fs.create(path);
+		IOUtils.copyBytes(new FileInputStream("e:/a.apk"), out, 1024);
+	}
+
+	// 通过API实现追加操作
+	public static void append() throws Exception {
+		Configuration conf = new Configuration();
+		conf.addResource("mycore-site.xml");
+		FileSystem fs = FileSystem.get(conf);
+		String file = "hdfs://ubuntu-01:8020/user/ljc/data/abc.txt";
+		Path path = new Path(file);
+		FSDataOutputStream out = fs.append(path);
+		// 执行写操作，必须保证该文件限权是本用户可写的
+		out.writeChars("efg\r\n");
+	}
+
+	// 通过API实现seek操作
+	public static void seek() throws Exception {
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(conf);
+		String file = "hdfs://ubuntu-01:8020/user/ljc/data/abc.txt";
+		Path path = new Path(file);
+		FSDataInputStream in = fs.open(path);
+		// 文件对拷
+		IOUtils.copyBytes(in, new FileOutputStream("E:/abc.txt"), 1024, false);
+		// 重新定义到文件起始点
+		in.seek(0);
+		IOUtils.copyBytes(in, new FileOutputStream("E:/abc2.txt"), 1024, false);
+
+	}
+
+	// 通过API放置文件
+	public static void putFile() throws Exception {
+		Configuration conf = new Configuration();
+		conf.addResource("mycore-site.xml");
+		FileSystem fs = FileSystem.get(conf);
+		String file = "hdfs://ubuntu-01:8020/user/ljc/data/abc.txt";
+		Path path = new Path(file);
+		FSDataOutputStream out = fs.create(path);
+		// 必须先修改hdfs文件目录的权限
+		IOUtils.copyBytes(new FileInputStream("E:/a.apk"), out, 1024, true);
+	}
+
+	// 获取本地文件系统
+	public static void locationFS() throws Exception {
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(conf);
+		LocalFileSystem local = fs.getLocal(conf);
+	}
+
+	// 读取hdfs文件
+	public static void read() throws Exception {
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(conf);
+		String file = "hdfs://ubuntu-01:8020/user/ljc/data/abc.txt";
+		Path path = new Path(file);
+		FSDataInputStream in = fs.open(path);
+		IOUtils.copyBytes(in, System.out, 1024, true);
+	}
+
+	// 获取hdfs文件信息
+	public static void readInfo() throws IOException {
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(conf);
+		String file = "hdfs://ubuntu-01:8020/user/ljc/data/abc.txt";
+		Path path = new Path(file);
+		FileStatus st = fs.getFileStatus(path);
+		System.out.println(st.getBlockSize());
+		System.out.println(st.getAccessTime());
+		System.out.println(st.getGroup());
+		// 获取文件块信息
+		BlockLocation[] blocks = fs.getFileBlockLocations(st, 0, st.getLen());
+		for (BlockLocation block : blocks) {
+			System.out.println(block.getHosts());
+			System.out.println(block.getNames());
+		}
+	}
+
+}

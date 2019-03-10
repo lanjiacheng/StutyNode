@@ -1,0 +1,26 @@
+#!/bin/bash
+if [ $# -lt 1 ] ;then
+  echo no args
+  exit;
+fi
+
+#get first argument
+arg1=$1;
+cuser=`whoami`
+fname=`basename $arg1`
+
+dir=`dirname $arg1`
+
+if [ "$dir" = "." ];then
+  dir=pwd
+fi
+for (( i=200;i<=500;i=i+100 )) ;
+do
+  echo ------coping $arg1 to $i------;
+  if [ -d $arg1 ] ;then
+    scp -r $arg1 $cuser@s$i:$dir
+  else
+    scp $arg1 $cuser@s$i:$dir
+  fi
+  echo
+done

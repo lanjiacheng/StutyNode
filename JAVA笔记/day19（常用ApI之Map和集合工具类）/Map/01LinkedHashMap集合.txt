@@ -1,0 +1,1 @@
+LinkedHashMap：内部结构是哈希表和链表，有序

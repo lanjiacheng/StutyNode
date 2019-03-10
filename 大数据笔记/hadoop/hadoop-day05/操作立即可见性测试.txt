@@ -1,0 +1,46 @@
+package com.ljc.myhadoop272;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IOUtils;
+import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
+
+class TestFileSystem_3 {
+	public static void main(String[] args) throws Exception {
+		testWrite();
+	}
+
+	@Test
+	/*
+	 * 测试路径一致可见性： 客户端一旦创建路径，该路径立即可见
+	 */
+	public static void testPath() throws Exception {
+		Configuration conf = new Configuration();
+		conf.set("fs.defaultFS", "hdfs://ubuntu-01:8020");
+		FileSystem fs = FileSystem.get(conf);
+		fs.create(new Path("hdfs://ubuntu-01:8020/user/ljc/data/test.txt"));
+		System.out.println("over");
+	}
+
+	@Test
+	/*
+	 * 测试写入一致可见性：
+	 * 当往hdfs文件写入时，并不会立即可见（缓存在本地内存中），除非调用hflush（）方法来将缓存内容刷入，否者只有客户端程序结束才会真正存入hdfs
+	 */
+	public static void testWrite() throws Exception {
+		Configuration conf = new Configuration();
+		conf.set("fs.defaultFS", "hdfs://ubuntu-01:8020");
+		FileSystem fs = FileSystem.get(conf);
+		FSDataOutputStream out = fs.create(new Path("hdfs://ubuntu-01:8020/user/ljc/data/test.txt"));
+		out.writeChars("abc");
+		out.hflush();
+		out.writeChars("efg");
+		System.out.println("over");
+	}
+}

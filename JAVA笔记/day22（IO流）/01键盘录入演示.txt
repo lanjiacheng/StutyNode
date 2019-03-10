@@ -1,0 +1,3 @@
+InputStream in = System.in;		//此流无需关闭，一旦关闭无法再打开
+int ch = in.read();			//一次读取一个字节，该方法接收不到数据会堵塞
+System.out.println(ch);			//一个汉字两字节，此方法无法一次读完一个汉字

@@ -1,0 +1,51 @@
+代码演示一：
+
+FileInputStream fis = new FileInputStream("c:\\0.mp3");
+FileOutputStream fos = new FileOutputStream("c:\\1.mp3");
+
+byte[] buf = new bute[1024];
+while((len=fis.read(buf))!=-1){
+	fos.write(buf,0,len);
+}
+fos.close();
+fis.close();
+
+
+代码演示二：
+
+FileInputStream fis = new FileInputStream("c:\\0.mp3");
+BufferedInputStream bufis = new BufferedInputStream(fis);
+FileOutputStream fos = new FileOutputStream("c:\\1.mp3");
+BufferedOutputStream bufos = new BufferedOutputStream(fos);
+byte[] buf = new byte[1024];
+int len = 0;
+while((len=bufis.read(buf))!=-1){
+	bufos.write(buf,0,len);
+	bufos.flush();		//因为应用了缓冲区，所以需要从缓冲区刷入目的地
+}
+bufis.close();
+bufos.close();
+
+
+代码演示三：
+
+FileInputStream fis = new FileInputStream("c:\\0.mp3");
+FileOutputStream fos = new FileOutputStream("c:\\1.mp3");
+byte[] buf = new byte[fis.available()];
+fis.read(buf);
+fos.write(buf);
+fos.close();
+fis.close();
+
+
+代码演示三：
+//别用，毫无效率可言
+
+FileInputStream fis = new FileInputStream("c:\\0.mp3");
+FileOutputStream fos = new FileOutputStream("c:\\1.mp3");
+int ch = 0;
+while((ch=fis.read())!=-1){
+	fos.write(ch);
+}
+fos.close();
+fis.close();

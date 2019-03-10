@@ -1,0 +1,62 @@
+一、关联源码：
+1.下载并解压hadoop...tar.gz文件
+2.在文件中搜索jar，将搜到的文件放到新建的_libs下
+3.在_libs下搜索source将得到的文件放到_sources下
+4.在_libs下搜索test放到_test-libs下
+5.在_sources下搜索test放到_test-sources下
+6.层层分离，得到四个文件夹：_libs  _sources  _test-libs  _test-sources
+7.打开eclipse添加classpath（就是build path选项），添加_libs中所有jar包，然后关联相应源码（_source）中
+
+二、从jar包提取所有配置项文件：
+1.打开添加的那些jar包中的hadoop-common-2.73.jar/META-INF/core-default.xml，这个文件既是默认配置文件
+2.将该文件复制到hadoop2.7.2/_conf/下
+	core-default.xml
+		C:\myprogram\hadoop-2.7.3\_libs\hadoop-common-2.7.3.jar
+	hdfs-default.xml
+		C:\myprogram\hadoop-2.7.3\_libs\hadoop-hdfs-2.7.3.jar
+	mapred-default.xml
+		C:\myprogram\hadoop-2.7.3\_libs\hadoop-mapreduce-client-core-2.7.3.jar
+	yarn-default.xml
+		C:\myprogram\hadoop-2.7.3\_libs\hadoop-yarn-common-2.7.3.jar
+
+三、脚本分析：
+{hadoop}/sbin/start-all.sh
+------------------------------------
+	1.{hadoop}/libexec/hadoop-config.sh
+		HADOOP_CONF_DIR=...		//--config参数
+	2./sbin/start-dfs.sh --config $HADOOP_CONF_DIR
+	3./sbin/start-yarn.sh --config $HADOOP_CONF_DIR
+
+{hadoop_home}/sbin/start-dfs.sh
+------------------------------------
+	1.{hadoop}/libexec/hadoop-config.sh
+		HADOOP_CONF_DIR=...		//--config参数
+	2.NAMENODE={hadoop_home}/bin/hdfs getconf -namenodes		//提取名称结点的主机名
+	3.{hadoop_home}/sbin/hadoop-daemons.sh --config ... --hostnames ... --script "{hadoop_home}/bin/hdfs" start namenode $dataStartOpt
+	4.{hadoop_home}/sbin/hadoop-daemons.sh --config ... --hostnames ... --script "{hadoop_home}/bin/hdfs" start datanode $dataStartOpt
+	5.{hadoop_home}/sbin/hadoop-daemons.sh --config ... --hostnames ... --script "{hadoop_home}/bin/hdfs" start secondarynamenode $dataStartOpt
+
+{hadoop_home}/sbin/hadoop-daemons.sh
+------------------------------------
+	1.{hadoop}/libexec/hadoop-config.sh
+		HADOOP_CONF_DIR=...		//--config参数
+	2.exec "$bin/slaves.sh" --config $HADOOP_CONF_DIR cd "$HADOOP_PREFIX" \; "$bin/hadoop-daemon.sh" --config $HADOOP_CONF_DIR $@"
+
+{hadoop_home}/sbin/slaves.sh
+-----------------------------------
+	1.{hadoop}/libexec/hadoop-config.sh
+		HADOOP_CONF_DIR=...		//--config参数
+	2."${HADOOP_CONF_DIR}/hadoop-env.sh"
+	3.提取slaves文件的所有主机名-->SLAVE_NAMES
+	4.for SLAVE_NAMES --> ssh @hostname ...
+
+"$bin/hadoop-daemo.sh"
+----------------------------------
+	1.{hadoop}/libexec/hadoop-config.sh
+		HADOOP_CONF_DIR=...		//--config参数
+	2.namenode|datanode|2namenode|...
+		bin/hdfs/xxx
+
+---------------------------------------------------------
+四、单独启动：
+	$> hadoop-daemons.sh --config /soft/hadoop/ets/hadoop_cluster start namenode		//单独启动namenode进程

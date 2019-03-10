@@ -1,0 +1,27 @@
+一、
+Object:所有类的父类
+
+Object是不断抽取而来，具备着所有对象都具备的共性内容
+二、
+equals()方法：形参是Object类的对象，比较的是对象的地址值，返回的是布尔类型的数据
+
+其等价于 对象==对象
+
+三、equals()方法的覆盖：
+在继承时，一般都会覆盖此方法，根据对象的特有内容，建立判断对象是否相同的依据
+
+四、一个覆盖equals方法的例子：
+class Person extends Object
+{
+	public boolean equals(Object obj)
+	{
+		if(!(obj instanceof Person))	//instanceof:如果参数1是参数2或参数2的子类的								//实例，那么返回true，如果参数1是null，返回								//false。
+						//此处目的是防止不同类型对象进行比较，若果不同对象，
+						//那么不用比较了，直接抛出异常
+		{
+			throw new ClassCastException("信息");
+		}
+		Person p=(Person)obj;		//此处向下转型，目的是能够调用到子类的特有内容
+		return this.age==p.age;
+	}
+}

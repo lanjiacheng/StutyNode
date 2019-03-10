@@ -1,0 +1,27 @@
+一、tomcat服务器的搭建
+1.下载
+	http://tomcat.apache.org/
+2.解压
+	C:\myprograms\apache-tomcat-7.0.63\
+3.启动
+	${tomcat_home}\bin\startup.bat
+4.启动完成
+
+二、使用eclipse tcp/ip monitor视图监控指定端口的信息
+	1.配置tcp/ip monitor
+		eclipse-->首选项-->run/debug-->tcp/ip monitor
+		add->
+			8000（本软件进程的端口）
+			8080（要监听的端口）
+			http（传输协议）
+
+	2.打开浏览器视图
+		windows-->show view-->other--general-->interner...
+		地址栏：http://localhost:8080/		//走的是监听端口
+
+	3.打开tcp/ip monitor视图
+		windows-->show view-->other-->debug-->tcp/ip...
+
+	发送的信息				返回的信息
+	head					head
+	body					body

@@ -1,0 +1,32 @@
+一、说明
+UML是一种用来表示程序结构的语言
+Rose是一款结合UML来设计程序结构的软件
+
+二、Rose的安装
+1.安装虚拟光驱软件：DTLite.exe
+2.加载Rose镜像安装文件
+3.一路安装，next...
+4.安装完成注册License
+	a.在license管理界面
+		开始-->IBM Rose-->License Administrator
+	b.import a license file（第二选项）
+	c.选择解压目录下的pud文件
+	d.一路导入
+	e.成功
+5.启动Rose
+	a.开始菜单-->IBM Rational Rose-->Enterprise Edition
+	b.如果错误，例如缺少xxx.dll文件
+		解决办法:复制${Rose_install}/common/{suites objects.dll+license.dll}到
+				c:/windows/{system32+SysWOW目录下}
+	c.启动rose的时候选择java版
+三、使用
+UML:unified Modeling language统一建模语言
+------------------------------------------
+Use case : 用例
+------------------------------------------
+类图：
+------------------------------------------
+时序图：时间顺序
+------------------------------------------
+状态图
+------------------------------------------

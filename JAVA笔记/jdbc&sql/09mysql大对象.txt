@@ -1,0 +1,8 @@
+一、mysql存放大对象
+1.设计表时，使用longblob字段类型
+	mysql>alter table stus add pic longblob;
+	mysql>alter table stus modify pic longblob;
+2.java使用PrepareStatement
+	ppst.setBinaryStream(int index,InputStream is,int length);
+3.mysql终端查询
+	select id from stus where pic is not null;

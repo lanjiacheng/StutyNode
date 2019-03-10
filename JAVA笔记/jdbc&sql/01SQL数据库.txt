@@ -1,0 +1,98 @@
+一、database：
+1.数据库
+2.表的集合
+3.SQL:
+	1.增加
+		insert into table1 values(100,'jerry',23);
+		insert into table1(id,name,age) values(100,'jerry',23);
+		insert into table1(name,age,id) values('jerry',23,1000);
+		insert into table1(name) values('dick');
+	2.删除
+		delete
+		delete from students where name is null;
+		delete from studentd where id in(1,3,5);	//删除di为1,,3,5的记录
+		delete from tablename where id between a and b	//等价于id>=a and id<=b
+		truncate table stus;	//清空表
+	3.更新
+		update
+		update students set name='ljc',id=19 where id=23;
+	4.查询
+		select:选择
+		select * from table1 where name='tom';
+		select * from table1 where name like 't%' or|and age =32;
+		select * from students where age is not null;	//查询是否为null的记录
+		select * id,name from students where age is not null;	//同上
+		select ... order by asc|desc;		//asc升序，desc降序
+		select *		//全字段扫描
+		select ...[no where]	//全表扫描，select后没有语句
+		select id,name from stus;	//选择若干字段进行查找，投影查询project
+		select from stus where ... limit1,2;	//1-offset，偏移量，2-length,长度，需要查询的记录数
+		select 1+1;		//表达式
+		select age+1 from stus;	//返回的age+1;
+		select (age+1) as newage ,name,agefrom from stus;	//指定字段的别名，as可以省略
+		select concat('hello',name) from stus;	//concat()字符串连接函数
+	5.数据的CRUD:create|retrieve|updata|delete
+	6.sql的注释：
+			/*注释*/		//块注释
+			-- 注释 
+		注：第二种--后面一定要加空格
+	7.聚集函数：
+		count(*)		//查询记录数量
+		sum()			//求和
+		max()			//最大值
+		min()			//最小值
+		avg()			//平均值
+
+二、 Table
+	1.二维
+	2.行：row,record:记录
+	3.列：field,字段
+
+三、RDBMS：relation database manage system
+	1.结构化数据
+	
+四、mysql的安装：
+	1....
+	2.custom安装
+	3.安装地址	c:\myprograms\MySQL Server 5.5\
+	4...
+	5.启动向导
+	6.detailed machine
+	7.developer machine
+	8.multifunction database
+	9....next -->next...
+	10....
+	11.选择默认字符集
+		手动选择字符集（第三选项）-->utf8
+	12.创建安全设置
+		root密码：
+		启用远程主机访问
+	13.选择执行
+	14.ok
+	15.验证mysql是否安装
+		1.控制面板-->管理工具-->服务-->状态-->已启动-->ok
+		2.cmd-->sercices.msc-->直接打开服务窗口
+五、mysql常用操作
+	1.操作1（非标准数据库语言，mysql特有）
+		mysal>show databases;		//显示有哪些数据库
+			information_schema	//元数据信息
+			test			//测试
+		mysql>use test;			
+		mysql>show tables;		//显示当前数据库中所有表
+		mysql> source d:/mysql.sql;	//执行脚本文件，文件中包含多个sql语句
+	2.DDL:
+		database define language:数据库定义语言
+		create database mybase;		//创建数据库
+		drop database mybase;		//删除数据库
+		
+		//数据库类型int varchar(50)
+		create table stus(id int auto_increment primary key,name varchar(50),age int);//新建表		
+		//注：auto_increment:设置主键自增（代理主键，默认为自然主键），primary key:设置主键
+		drop table stus;		//删除表
+		desc|describe	stus		//查看表结构
+		alter table stus add password varchar(20);	//修改表，添加一个password字段
+		alter table stus modify pic blob;	//修改表，把pic字段类型改成blob 
+	3.DML:数据库操纵语言
+		select * from stus;		//查询
+		insert into stus values(1,'tom',12);	//插入
+	

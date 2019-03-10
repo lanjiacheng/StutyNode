@@ -1,0 +1,32 @@
+public class JDBCDemo{
+	public static void main(String[] args)throws Exception{
+		//1.注册驱动
+		String driver = "com.mysql.jdbc.Driver";
+		Class.forName(driver);
+		//2.建立连接
+//url格式：JDBC:子协议:子名称//主机名:端口/数据库名?属性名=属性值&...
+		String url="jdbc:mysql://localhost:3306/mybase";
+		String username="root";
+		String passwprd="root";
+		Connection conn=DriverManager.getConnection(url,username,password);
+		
+		//设置自动提交模式
+		//conn.setAutoCommit(false);	//设置为不自动提交（执行完一个语句后不自
+						动提交），默认为自动提交
+
+		//3.创建语句对象
+		Statement st=conn.createStatement();
+		String sql="insert into stus(id,name,age) values(4,'alice',10)";
+		//4.执行语句
+		boolean b=st.execute(sql);
+		
+		//提交或回滚
+		//conn.commit();	//使此前事务操作（sql语句）生效并持久化
+		//conn.rollback();	//使此前事务撤销
+
+		System.out.println(b);
+		//5.释放资源
+		st.close();
+		conn.close();
+	}
+}

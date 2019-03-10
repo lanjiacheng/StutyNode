@@ -1,0 +1,13 @@
+关于类文件对象的一些说明：
+类文件在java中也是被当做对象来看待，当类文件（字节码文件）一被加载进方法区时
+在堆内存中就建立了一个对象（该对象类型是Class，该对象名是字节码文件名），该对象
+的内容是描述所有类的共性，包括：
+name,field,constructor,method
+
+getClass()返回该对象的类的对象
+且可以通过getClass()方法再调用该对象的类的对象的方法，例如：
+getName是Class类型的对象的方法，可以先获取该对象再通过该对象调用该方法
+Person p=new Person();
+p.getClass().getName();
+注：getClass是从Object继承而来的，getName是Class类型的对象中的方法，返回的是该字节码的文
+件名，也可以说是返回类名

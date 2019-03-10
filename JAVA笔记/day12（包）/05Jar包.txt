@@ -1,0 +1,19 @@
+一、Jar是什么：
+	Jar:java的压缩包
+
+二、怎么生成jar包：
+命令行下输入：
+jar -cf jar包名.jar 类名.class （此命令不输出详细信息）
+jar -cvf jar包名.jar 类名.class （此命令输出详细信息，该信息包括jar这个命令做了什么事情）
+
+三、解压jar包：
+命令行下输入:
+jar -xvf jar包名.jar （解压后的文件放到当前目录下）
+
+四、jar包中的META-INF：
+这个文件夹里的文件是jar包的清单文件，内容包括jar里的内容和一些属性
+
+五、jar如何使用jar包里的类：
+假设jar包myjar中有一个包pack，包里有一个类cla，那么可以不解压，直接如下调用：
+set classpath=./myjar.jar		
+java pack.cla

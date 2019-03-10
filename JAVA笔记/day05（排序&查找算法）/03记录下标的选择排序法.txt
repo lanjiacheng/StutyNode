@@ -1,0 +1,30 @@
+/*
+需求：记录下标的选择排序法
+原理：每次循环，记录最大数或最小数的下标，
+然后用该下标完成前面的元素与最大或最小元素的交换
+*/
+class Exercise04 
+{
+	public static void main(String[] args) 
+	{
+		int[] arr=new int[]{3,2,1,6,5,4,9,8,7,10};
+		for(int i=0;i<arr.length;i++)
+		{
+			int index=i;
+			for(int j=i+1;j<arr.length;j++)
+			{
+				if(arr[index]>arr[j])
+				{
+					index=j;
+				}
+			}
+			int temp=arr[index];
+			arr[index]=arr[i];
+			arr[i]=temp;
+		}
+		for(int i=0;i<arr.length;i++)
+		{
+			System.out.print(arr[i]);
+		}
+	}
+}

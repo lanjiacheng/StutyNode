@@ -1,0 +1,23 @@
+用缓冲区来实现文本复制代码示例如下：
+
+FileReader fr = new FileReader("buf.txt");
+BufferedReader bufr = new BuffereReader(fr);
+
+FileWriter fw = new FileWriter("buf_copy.txt");
+BufferedWriter bufw = new BufferedWriter(fw);
+
+String line = null;
+while((line=bufr,readLine())!=null){		//按行读取	
+	bufw.write(line);		//按行写入
+	bufw.newLine();		//换行
+	bufw.flush();
+}
+bufw.close();
+bufr.close();
+
+或者：
+
+int ch = 0;
+while((ch=bufr.read())!=-1){
+	bufw.write(ch);
+}

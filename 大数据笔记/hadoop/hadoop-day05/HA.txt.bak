@@ -1,0 +1,113 @@
+HA
+--------------------
+	1.high availability：高可用性
+		持续服务的能力
+		多台主机之间进行集群配置
+	2.failover,容灾
+	3.namenode ， 2nn
+		secondary namenode 解决的是可靠性问题
+	4.single point of failure(SPOF),单点故障
+		nn1 + nn2
+	5.NFS(Network file System,共享存储设备EMC) + QJM
+	
+HA结构
+----------------
+	两台主机，一台active，另一台standby，active nn负责客户端所有操作
+	standby维护足够多的状态，随时提供容灾服务
+
+	Journal是单独的进程，用于active nn和standby nn之间的同步信息
+	active nn的namespace修改动作写入到jns，standby nn从jn读取edit，需要不断
+	观察log的变化，一旦log发生变化，standby就会同步到自己的namespace
+
+	datanode同时只能有一个active nn，如果两个都是active的namenode，叫做“脑裂”
+
+部署HA
+-----------------
+配置过程：
+	[hdfs-site.xml]
+	1.配置名称服务：dfs.nameservices
+		名称服务的逻辑名
+		<property>
+		  <name>dfs.nameservices</name>
+		  <value>mycluster</value>
+		</property>
+	2.配置nameservice中每个namenode
+		<property>
+		  <name>dfs.ha.namenodes.mycluster</name>
+		  <value>nn1,nn2</value>
+		</property>
+		注意：目前hadoop2.7.2最多只能配置2个namenode
+	3.配置每个namenode的rpc地址
+		<property>
+		  <name>dfs.namenode.rpc-address.mycluster.nn1</name>
+		  <value>s100:8020</value>
+		</property>
+		<property>
+		  <name>dfs.namenode.rpc-address.mycluster.nn2</name>
+		  <value>s800:8020</value>
+		</property>
+	4.配置每个namenode的webui地址
+		<property>
+		  <name>dfs.namenode.http-address.mycluster.nn1</name>
+		  <value>ubuntu-01:50070</value>
+		</property>
+		<property>
+		  <name>dfs.namenode.http-address.mycluster.nn2</name>
+		  <value>ubuntu-06:50070</value>
+		</property>
+	5. 配置namenode的共享edit log目录
+		<property>
+		  <name>dfs.namenode.shared.edits.dir</name>
+		  <value>qjournal://s100:8485;s700:8485;s800:8485/mycluster</value>
+		</property>
+	6.配置客户端容灾代理供应商
+		供客户端用来检测哪个namenode是活跃结点
+		<property>
+		  <name>dfs.client.failover.proxy.provider.mycluster</name>
+		  <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+		</property>
+	7.（可选的）配置HA防护方法名称集合
+		QJM防止脑列发生
+		可以配置sshfence或者shell脚本
+	8.配置hdfs的文件系统
+	  [core-site.xml]
+		<property>
+		  <name>fs.defaultFS</name>
+		  <value>hdfs://mycluster</value>
+		</property>
+	9.配置JN的本地存放数据（edit log）目录
+		<property>
+		  <name>dfs.journalnode.edits.dir</name>
+		  <value>/home/ubuntu/hadoop/journal</value>
+		</property>
+
+部署过程：
+	1.在JN节点之上启动jn进程
+	  $>hadoop-daemon.sh start journalnode
+	2.启动完成JN之后，需要在disk上完成两个nn的元数据同步工作
+	  a.如果在正在构建的hdfs集群，需要先在一台namenode上进行format工作
+	  b.若已经格式化文件系统或者早non-ha的集群之上启用ha功能，需要复制现有的nn目录（~/hadoop/dfs/name）到
+	    另一台nn的相同目录下
+	    在未格式化的nn上执行命令：hdfs namenode -bootstrapStrandby，该命令保证jn有足够的多的edit来启动两
+	    个nn
+	  c.如果正在将non-ha namenode转换成ha，执行命令hdfs namenode -initializeSharedEdits,会从local的namenode
+	    编辑日志目录数据初始化到jns中
+	  d.启动两个nn
+	  e.通过webui查看每个nn的状态
+		http://s100:50070/
+		http://s800:50070/
+
+HA管理：
+	hdfs haadmin -transitionToActive nn1	//切换活跃名称结点
+	hdfs haadmin -transitionToStandby nn1	//切换活跃名称结点
+
+-------------------------------------------------------------
+一点总结：
+从没ha的变步骤：
+1.写好配置文件再分发
+2.在journal节点上启动journal进程	hadoop-daemon.sh start journalnode
+3.复制已格式化的nm的name目录到未格式化的nm的name
+4.在已格式化的nm上执行  hdfs namenode -initializeSharedEdits  初始化共享目录
+5.在未格式化的nm上执行   hdfs namenode -bootstrapStrandby
+6.启动hadoop
+7.切换为活跃状态	hdfs haadmin -transitionToActive nn1

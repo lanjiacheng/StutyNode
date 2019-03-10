@@ -1,0 +1,13 @@
+一、
+Serializable:用于序列化的接口。该接口没有任何方法，只有一个私有的成员变量
+		该变量用于给被序列化的类加入ID号
+		用于判断类和接口是否是同一个版本
+
+二、示例：
+
+public class Person implements Serializable/*标记接口*/{
+	private static final long serialVersionUID = 95271;	//此ID如不显示声明，编译器会分配，不同
+								//编译器，对同一个类分配的不一样
+	private String name;
+	private int age;
+}

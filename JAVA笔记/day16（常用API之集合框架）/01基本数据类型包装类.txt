@@ -1,0 +1,47 @@
+一、概述：
+基本数据类型对象包装类：
+	为了方便操作基本数据类型，将其封装成了对象，在对象中定义属性并丰富了该数据
+	的操作
+	用于描述该对象的类就称为基本数据类型对象包装类
+
+二、基本数据类型与对应的类：
+数据类型	对应类
+byte		Byte
+short		Integer
+long		Long
+float		Float
+double		Double
+char		Character
+boolean		Boolean
+
+三、类中的方法：
+
+基本类型--->字符串
+	1.基本数据类型+""
+	2.用String类中的静态方法valueOf(基本数据类型)
+	3.用Integer的静态方法valueOf(基本数值类型)
+
+字符串--->基本类型
+	1.使用包装类中的静态方法xxx parseXxx("xxx类型的字符串");
+		int parseInt("intstring");
+		long parseLong("longstring");
+		boolean parseBoolean("nooleanstring");
+		只有Character没有parse方法
+
+	2.如果字符串被Integer进行对象的封装
+		可以使用另一个非静态的方法，intValue()将一个Integer对象转成基本数据类型
+
+整数的进制转换：
+	1.十进制--->其他进制
+		toBinaryString()
+		toOctalString()
+		toHexString()
+
+	2.其他进制--->十进制
+		parseInt("str",radix)
+
+四、自动装箱拆箱：
+	1.自动装箱示例：Integer i=6;//自动封装，简化书写
+	2.拆箱示例：i=i+6;自动拆箱，把Integer对象拆箱成int基本数据类型
+小细节：jak1.5以后，自动封箱，如果装箱的是一个字节以内，那么该数据就会被共享，再次装箱该数值的时候
+	不会重新开劈空间

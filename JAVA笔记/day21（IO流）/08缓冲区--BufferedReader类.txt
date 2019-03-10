@@ -1,0 +1,9 @@
+代码示例：
+
+FileReader fr = new FileReader("buf.txt");
+BufferedReader bufr = new BufferedReader(fr);
+String line = null;
+while((line=bufr.readLine())!=null){		//按行读取，读取的内容不包含换行符，读完返回null
+	System.out.println(line);
+}
+bufr.close();		//其实关闭的是字符流（FileReader）

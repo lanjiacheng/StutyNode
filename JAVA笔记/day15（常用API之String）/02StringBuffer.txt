@@ -1,0 +1,40 @@
+一、概述：
+StringBuffer：就是字符串缓冲区，用于存储数据的容器
+
+二、特点：
+1.长度是可变的
+2.可以存储不同类型的数据
+3.最终要转换成字符串进行使用
+4.可以对字符串进行修改
+
+三、方法：
+1.添加：
+	StringBuffer append(all data):在末尾添加数据，返回添加后的缓冲区容器，地址与之前的缓冲区一样
+	StringBuffer insert(int index,all data):在指定位置添加，返回添加后的
+
+2.删除：
+	StringBuffer delete(int start,int end):删除指定角标内的内容，返回删除后的，包含头不包含尾
+	StringBuffer deleteCharAt(int index):删除指定位置的元素，然后返回
+
+3.查找：
+	char charAt(int index):返回指定位置的字符
+	int indexOf(String str):返回第一个指定字符串的角标
+	int lastIndexOf(String str):返回值定字符串的角标，倒序查找，第一个
+
+4.修改：
+	StringBuffer replace(int start,int end,String str):用指定字符串替换指定位置的内容，返回
+	void setCharAt(int index,char ch):用指定字符替换指定位置的字符
+	StringBuffer reverse():将内容倒置然后返回
+
+5.清空缓冲区：
+	sb.delete(0,sb.length());
+	sb=new StringBuffer();
+	sb.setLength(0);
+
+6.设置长度：
+	sb.setLength(int length):对缓冲区长度进行设置，长度变小，把装不下的部分去掉，长度变大，空格补上
+	关于设置长度的一点说明：设置长度比原来长，长出来的部分空格补上，原来没有内容的部分也会被补上空格，
+	有内容部分不变，比原来短，短的部分直接去掉。由于设置长度而显示出来的空格字符，也是真正字符，添加内
+	容时会在空格之后添加
+	当存入的数据超出范围时，该对象会自动增加长度
+	无参构造函数默认建立长度为16内容为空的容器（缓冲区）

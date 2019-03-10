@@ -1,0 +1,51 @@
+一、特点：
+1.此类用于操作基本数据类型，是一个装饰类，需要传入OutputStream或InputStream对象
+
+2.此类中的方法writeUTF（String str）写入字符串，并且是以UTF-8修改版写入的，读的时候必须用DataInputStream的
+	readUTF()方法来读
+
+二、示例：
+
+package cn.itcast.io.p5.datastream;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class DataSteamDemo {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		
+//		writeData();
+		readData();
+		
+	}
+
+	public static void readData() throws IOException {
+		
+		DataInputStream dis = new DataInputStream(new FileInputStream("data.txt"));
+		
+		String str = dis.readUTF();
+		
+		System.out.println(str);
+	}
+
+	public static void writeData() throws IOException {
+		
+		DataOutputStream dos = new DataOutputStream(new FileOutputStream("data.txt"));
+		
+		dos.writeUTF("你好");
+		
+		dos.close();
+		
+		
+	}
+
+}

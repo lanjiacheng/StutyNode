@@ -1,0 +1,44 @@
+package reflect;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
+public class reflectDemo {
+
+	public static void main(String[] args) throws Exception {
+		Class clazz = Class.forName("reflect.BigStudents");
+
+		/*** 字段演示 ***/
+
+		// Field[] fields=clazz.getFields(); //返回所有外部可访问字段，包含父类的
+		// Field field=clazz.getField("name"); //返回指定所有可访问的字段，包括父类的
+		// Field[] fields=clazz.getDeclaredFields(); // 返回在该类中声明的所有方法，包括私有的
+		// Field f=clazz.getDeclaredField("school"); //返回指定在类中声明的方法
+		 Object o=clazz.newInstance();
+		// f.setAccessible(true); //设置字段可见性，强制访问修改
+		// f.set(o, "yulinshiyuan"); //改变指定对象的该字段的值
+		// System.out.println(((BigStudents)o).getSchool());
+
+		/*** 方法演示 ***/
+		Method m = clazz.getDeclaredMethod("getSchool");
+		Method m2=clazz.getDeclaredMethod("setSchool", String.class);
+		m2.invoke(o, "yulinshiyuan");
+		Object s=m.invoke(o);
+		System.out.println(s);
+
+		/*** 构造器演示 ***/
+		Constructor con=clazz.getConstructor(String.class);
+		Object o2=con.newInstance("ljc");
+		System.out.println(o2);
+
+		/*** 描述符演示 ***/
+		int md=clazz.getModifiers();
+		System.out.println(md);
+		boolean b=Modifier.isPublic(md);
+		System.out.println(b);
+
+	}
+
+}

@@ -1,0 +1,63 @@
+函数式编程：
+	闭包、匿名函数
+
+匿名函数：
+	f = lambda x,y: x+y	#定义并赋给变量
+	f(1,2)			#调用
+
+三元表达式：
+	r = x if x > y else y
+
+map：
+	map(func,list_x,list_y) ：将list每个值用func方法处理，得到新的值组成新的list返回一个map，
+		可通过list(map)来转换成列表
+
+reduce：
+	from functools import reduce
+	list_x = [1,2,3,4,5,6]
+	r = reduce(lambda x,y:x+y,list_x)
+	说明：
+		reduce实现连续计算，第一次给匿名函数传入list中的第1和2个值，第二次传入上次的结果和第三个值
+			如此循环，直到计算完，返回最终结果（最后一次匿名函数返回的结果）
+
+filter：
+	list_x = [1,0,1,0,1]
+	r = filter(lambda x: True if x==1 else False,list_x)
+	print(list(r))
+	说明：
+		将list中符合匿名函数指定规则的值返回，不符合的去掉，返回一个filter
+
+装饰器：
+	def decorator(func):
+	    def wrapper():
+	        print(time.time())
+		func()
+	    return wrapper
+	@decorator				#添加装饰器
+	def f1():
+	    print('This is a function')
+	f1()
+
+	可变参数装饰器：
+	def decorator(func):
+	    def wrapper(*args):
+	        print(time.time())
+		func(*args)
+	    return wrapper
+	@decorator				#添加装饰器
+	def f2(str):
+	    print('This is a function'+str)
+	f2()
+
+	可扩展参数装饰器：
+	def decorator(func):
+	    def wrapper(*args,**kw):
+	        print(time.time())
+		func(*args,**kw)		#如此引用，args是tuple，*args就是原来的几个参数集，参数集可以再、
+							传给其他函数当做参数以调用
+							kw是字典，*kw是参数集，**kw报错
+	    return wrapper
+	@decorator			#添加装饰器
+	def f3(str1,str2,**kw):
+	    print('This is a function'+str1+str2+kw)
+	f3('str1','str2',a=1,b=2,c='123')		#**kw位置可传入字典

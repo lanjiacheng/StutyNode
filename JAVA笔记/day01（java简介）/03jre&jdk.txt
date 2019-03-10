@@ -1,0 +1,5 @@
+1.JRE--java runtime environment(java 运行环境)
+包括：java虚拟机（JVM）和java程序运行所需的核心类库，
+运行程序java程序，只需安装JRE
+2.JDK--java development kit(java 开发工具包)
+包括：JRE、编译工具、打包工具等

@@ -1,0 +1,46 @@
+一、流对象有哪些？
+字节流：
+InputStream		OutputStream
+BufferedInputStream	BufferedOutputStream
+
+字符流：
+Writer		Reader
+FileReader	FileWriter
+BufferedReader	BufferedWriter
+
+
+二、规律：
+
+转换流：
+InputStreamReader：字节到字符的桥梁，解码。
+OutputStreamWriter：字符到字节的桥梁，编码
+
+四个明确：
+
+1.明确源和目的（汇）
+	源：InputStream Reader
+	目的：OutputStream Writer
+
+2.明确数据是否是纯文本数据
+	源：
+		是：Reader
+		否：InputStream
+	目的：
+		是：Writer
+		否：OutputStream
+
+3.明确具体的设备：
+	源设备：
+		硬盘：File
+		键盘：System.in
+		内存：数组
+		网络：Socker流
+
+	目的设备：
+		硬盘：File
+		控制台：System.out
+		内存：数组
+		网络：Socker流
+
+4.是否需要其他额外功能
+	1.是否需要高效：Buffered

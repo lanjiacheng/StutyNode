@@ -1,0 +1,16 @@
+Map集合本身没有迭代器，可以通过它本身方法keySet来获取键集，再通过键集来迭代出所有元素
+然而还有取出所有元素的第二种方法：
+原理：通过Map转成set。
+过程：调用Map本身的一个方法entrySet，该方法将键和值的映射关系集合作为对象存储到了Set集合中，而这个映射关系
+	集合中的每一个关系就是一个Map.Entry类型（好比结婚证），获取该映射关系，再通过该关系对象来迭代
+	出所有元素即可
+
+示例：
+Set<Map.Entry<Integer,String>> entrySet = map.entrySet();
+Interator<Map.Entry<Integer,String>> it = entrySet.iterator;//获取映射关系集合，集合中存储的是Map.Entry类								型元素
+while(it.hasNext()){
+	Map.Entry<Integer,String> me = it.next();//迭代出每个Map.Entry类型的映射关系
+	Integer key = me.getKey();	//通过映射关系找出映射值
+	String value = me.getValue();	//同上
+	System.out.println(key+"..."+value);
+}

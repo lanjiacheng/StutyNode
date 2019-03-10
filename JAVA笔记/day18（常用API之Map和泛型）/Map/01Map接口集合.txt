@@ -1,0 +1,22 @@
+一、特点：
+Map一次添加一对元素，Collection一次添加一个元素，因此，Map也称为双列集合
+
+二、常见方法:
+1.添加：
+	value put(key,value):添加指定键和键对应的值，若键已对应值，那么新值覆盖旧值
+		返回前一个和这个key关联的值，如果没关联过，返回null
+
+2.删除
+	vold clear():清空map集合
+	value remove(key):根据指定key移除这个键值对
+
+3.判断：
+	boolean containsKey(key):判断是否包含指定键
+	boolean containsValue(value):判断是否包含指定值
+	boolean isEmpty():判断是否为空
+
+4.获取：
+	value get(key):通过键获取值，没有就返回null
+			那么可以通过判断返回null来判断是否包含指定键
+	int size():获取键值对的个数
+	Set keySet():或取Map集合中左右的键的集合

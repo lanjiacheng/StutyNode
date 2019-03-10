@@ -1,0 +1,25 @@
+thinkphp安装流程：
+	1.下载框架，然后把框架放到www目录的某个子目录下。（例如：D:\wamp\www\tp5）
+		此时已经可以通过url:http://localhost/tp5/public/来进行访问（访问的是默认的index.php文件），
+		该访问路径由apache进行解析并返回。
+	2.配置虚拟主机。对apache的配置文件进行修改，修改内容有：取消三个选项注释和添加虚拟主机（设置
+		root目录为：D:\wamp\www\tp5\public）。将虚拟主机名和ip地址的映射写到hosts系统文件中。重启
+		apache服务器。此时已经可以通过虚拟主机名来访问thinkphp框架下面的($thinkphp)/publick/index.php
+		文件。因为访问主机名时，会解析到本地ip（在hosts文件中进行过映射）。访问本地ip的80端口就会由
+		apache来响应请求，apache就会到虚拟主机的root目录下面寻找和执行要访问的文件（因为在apache配置
+		文件中添加了虚拟主机名和对相应root目录的映射关系），默认入口文件是$(root)/index
+		
+总结：
+	当访问一个apache服务器上的资源时，用url如：http://localhost/a/b，那么服务器会找到root目录下的a下的
+		b资源，运行然后返回。
+	当用url如：http://localhost/xxx.php/a/b，那么如果xxx.php存在，那么服务器就会运行xxx.php，并将a和b
+		作为传给该文件执行时的参数
+	当用url如：http://localhost时，服务器会默认执行或返回root目录下的index.php文件
+	如果开启了复写模式，访问url如：http://localhost/a/b，服务器会一直执行root目录下的index文件，并将
+		a和b作为index运行时的参数传递，除非a是一个实际存在的文件，那么就会执行a，并把b作为参数传递给
+		a执行
+
+复写模式：
+	在apache服务器的配置文件中进行开启，然后在root目录下建立一个.htaccess文件，在该文件中进行编辑，写入
+		复写的触发条件和规则。写该文件的目的是告诉apache服务器一些复写的信息，当访问主机时，apache会首先
+		访问root目录下的该文件，然后对url进行制定规则的复写，然后再定位资源并执行返回。

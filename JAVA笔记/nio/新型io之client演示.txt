@@ -1,0 +1,24 @@
+package selector;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
+
+public class Client {
+
+	public static void main(String[] args) throws Exception {
+		// 打开客户端通道并设置连接主机名和端口
+		SocketChannel sc = SocketChannel.open();
+		// 设置非堵塞模式
+		// sc.configureBlocking(false);
+		// System.out.println(sc.isConnected());
+		sc.connect(new InetSocketAddress("localhost", 8888)); // 如果打开通道时已经设置链接地址，那就会在打开时已经连接，此方法多余
+		ByteBuffer src = ByteBuffer.allocate(1024);
+		src.put("你好".getBytes());
+		src.flip();
+//		sc.write(src);
+		sc.close();
+	}
+
+}

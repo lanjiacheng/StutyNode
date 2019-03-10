@@ -1,0 +1,21 @@
+格式：
+switch(表达式)
+{
+case 取值1:
+执行语句;(break;)
+case 取值2:
+执行语句;(break;)
+case 取值3:
+执行语句;(break;)
+default :
+执行语句;
+}
+
+说明：
+表达式必须能计算出一个char byte short int或者String类型的值
+
+case取值类型必需与表达式的类型一致，且都是常量表达式，就是不能出现变量
+
+default语句是可选的，且default语句的位置也是随意的，且default语句的取值是最后才判断的，也就是说，先判断完所有case才会轮到default，执行完default若未遇到break语句，则继续执行default语句的下一个case的执行语句。
+
+switch语句执行时，一次把所有case取值放进内存，效率较高（相对if语句来讲）

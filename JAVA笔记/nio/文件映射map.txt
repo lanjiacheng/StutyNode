@@ -1,0 +1,23 @@
+package Buffer;
+
+import java.io.RandomAccessFile;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
+
+public class MapDemo {
+	/*
+	 * MappedByteBuffer内部维护一个虚拟机之外的内存空间，该空间是硬盘上某个文件的某段的映射
+	 * 操作该缓冲区，可以扩散到硬盘文件上去，该缓冲区对象通过Channel通道来获得
+	 */
+
+	public static void main(String[] args) throws Exception {
+		RandomAccessFile raf = new RandomAccessFile("D:/xx.tar.gz", "r");
+		FileChannel fcIn = raf.getChannel();
+		MappedByteBuffer buf = fcIn.map(MapMode.READ_ONLY, 0, fcIn.size());
+		buf.put((byte) 123);
+		fcIn.close();
+		raf.close();
+	}
+
+}

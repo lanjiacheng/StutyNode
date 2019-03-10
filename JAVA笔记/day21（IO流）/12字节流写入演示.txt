@@ -1,0 +1,27 @@
+写示例如下：
+
+//创建字节输出流对象，用于操作文件
+FileOutputStream fos = new FileOutputStream("bytedemo.txt");
+//写数据，直接写入到了目的地中
+fos.write("abcdefg".getBytes());
+//fos.flush();		//这步你没意义，数据直接写了目的地中
+fis.close();		//关闭源动作有必要完成
+
+
+读示例如下：
+一、
+
+//创建一个读取流对象，和指定文件关联
+FileInputStream fis = new FileInputStream("bytedemo.txt");
+bute[] buf = new byte[1024];
+int len = 0;
+while((len=fis.read(buf))!=-1){		//read()方法一次读取一个字节，读不出或读到结尾返回-1
+	System.out.println(new String(buf,0,len));
+}
+
+二、
+
+FileInputStream fis = new FileInputStream("bytedemo.txt");
+byte[] buf = new byte[fis.available()];		//available()方法返回的是关联文件的字节数（大小）
+fis.read(buf);		//一次性将文件读完
+System.out.println(new String(buf));

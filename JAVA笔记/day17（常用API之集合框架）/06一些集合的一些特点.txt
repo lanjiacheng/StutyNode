@@ -1,0 +1,35 @@
+集合的一些技巧：
+
+需要唯一吗？
+需要：Set
+	需要顺序吗？
+		需要：TreeSet
+		不需要：HashSet
+		但是想要一个和存储一致的顺序（有序）：LinkedHasSet
+不需要：List
+	需要频繁增删吗？
+		需要：LinkedList
+		不需要：ArrayList
+
+如何记住每一个容器的结构和体系呢？
+
+看名字
+
+List
+	|--ArrayList
+	|--LinkedList
+
+Set
+	|--HashSet
+	|--TreeSet
+
+后缀名就是该集合所属的体系
+
+前缀名就是该集合的数据结构
+
+array:数组结构，有角标，查询快
+link:链表结构，增删快，特有的方法：(add get remove) + (first last)
+hash:哈希表结构，元数不能重复（唯一性），一般需要覆盖hashCode方法和equals方法
+tree:二叉树结构，要比较并排序，要么元素实现Comparable接口，要么集合实现Comparator接口
+
+通常这些容器都是不同步的

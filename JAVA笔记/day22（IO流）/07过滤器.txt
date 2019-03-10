@@ -1,0 +1,18 @@
+过滤器用于list方法过滤文件名，该类需要实现过滤器接口
+过滤器1：
+
+public class FilterByJava implements FilenameFilter{	//按文件名过滤
+	//覆盖accept方法
+	public boolean accept(File dir,String name){	//dir是指定目录，name是文件或文件夹名
+		return name.endsWith(".java");	//过滤掉那些不是.java结尾的文件名
+	}
+}		//此过滤器一般与list方法搭配使用
+
+过滤器2:
+
+public class FilterByHidden implements FileFilter{
+	//覆盖accept方法：
+	public boolean accept(File pathname){		//pathname是文件夹下的文件的File对象
+		return !pathname.isHidden();
+	}
+}		//此过滤器一般与listFiles方法搭配使用

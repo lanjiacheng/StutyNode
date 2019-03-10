@@ -1,0 +1,8 @@
+一、finally语句的特点：
+1.在try-catch-finally结构中，finally语句是必须执行的
+2.无论catch是否捕捉到异常，finally都会执行
+3.就算catch中有return语句（结束函数），finally语句也会执行
+4.如果catch中有System.exit(0)语句（结束jvm），那么finally将会执行不到
+
+二、finally的作用：
+通常用于关闭（释放）资源

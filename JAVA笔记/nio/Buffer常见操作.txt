@@ -1,0 +1,12 @@
+一、Buffer常见操作：
+allocate	//堆分配
+allocateDirect	//直接分配
+Channel		//通道，用于将缓冲区的数据输出或将数据读入缓冲区，通过输入输出流获取
+mark <= position <= limit <= capacity
+rewind()	//重来：pos=0,mark=-1（丢弃）
+clear()		//pos=0,lim=cap,mark丢弃
+flip()		//拍板：lim=pos,pos=0,mark丢弃
+reset()		//重置：pos=mark
+slice()		//切片：从当前缓冲区中划出前n个元素构造新缓冲区，n等于当前buffer的remaining大小
+		//两个buffer操作同一个byte[]，但有各自的属性，例如limit,pos等
+compact		//整理：将当前buf中的remaining部分一道最前并空出，lim放大到capacity

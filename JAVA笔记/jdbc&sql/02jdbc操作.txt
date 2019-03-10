@@ -1,0 +1,16 @@
+一、JDBC
+1.java database connection,java数据库连接
+//准备工作
+2.下载驱动程序
+	mysql-connector-java-5.0.8.jar
+3.添加驱动到classpath下
+	创建lib文件夹
+	复制到lib下
+	添加到buildpath中
+//编程
+4.注册驱动
+5.建立连接
+6.创建Statement（语句对象）
+7.执行
+8.处理结果
+9.释放资源

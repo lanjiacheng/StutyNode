@@ -1,0 +1,12 @@
+一、
+Collections是集合框架的工具类
+里面的方法都是静态的
+
+二、Collections的方法：
+1.void sort(List list)或void sort(List list,Comparator comp):对List集合的元素进行排序，前提是
+	元素具有比较性或传递了比较方器
+
+2.binarySearch(list,"cba"):查找指定元素的插入位置，先在插入的位置角标基础上加一在取负值，负值表示没找到
+	前提是集合中的元素已经排序并具有比较方法
+
+3.max(list)或max(list,comp):找出最大值，前提是元素具有比较性或传入比较器

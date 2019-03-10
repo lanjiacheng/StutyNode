@@ -1,0 +1,1 @@
+hadoop jar myhadoop2.72.jar com.it18zhang.hadoopdemo.mr.MyMapperApp	//运行指定包里的指定类

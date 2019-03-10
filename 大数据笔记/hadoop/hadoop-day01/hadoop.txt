@@ -1,0 +1,105 @@
+一、hadoop
+	可靠、可伸缩、分布式的计算框架，开源软件
+
+二、hadoop模块
+----------------------
+1.hadoop common		//公共类库，支持其他模块
+	hadoop-common-xxx.jar
+	core-site.xml
+	core-default.xml
+2.HDFS			//hadoop distributed file system，hadoop分布式文件系统
+	hdfs-site.xml
+	hdfs-default.xml
+3.Hadoop YARN		//Yeah another resource ,作业调度和资源管理的框架
+	mapred-site.xml
+	mapred-default.xml
+4.Hadoop MapReduce	//基于yarn系统的大数据集并行处理技术
+	yarn-site.xml
+	yarn-default.xml
+
+三、完全分布式启动
+	1.hdfs
+		NameNode
+		DataNode
+		SecondaryNameNode
+		启动脚本：start-dfs.sh
+	2.Yarn
+		ResourceManager
+		NodeManager
+		启动脚本：start-yarn.sh
+	3.hadoop-daemons.sh
+		hdfs.sh
+		yarn.sh
+
+-------------------------------------------------------------------
+dfs.namenode.name.dir
+---------------------------------
+	1.名称结点可以配置多个目录，目的在于更可靠（配置文件中配置）
+	2.每个目录存放的内容是相同的（相当于副本）
+
+dfs.datanode.data.dir
+---------------------------------
+	1.数据节点配置多个目录，不是副本
+	2.每个目录存放的内容不一样，根据存储策略来决定存在哪个目录下
+	3.","号分割（在配置文件中）
+--------------------------------------------------------------------
+常用端口
+---------------------------------
+	1.namenode
+		rpc	//8020
+		webui	//50070
+	2.datanode
+		rpc	//8032
+		webui	//50075
+	3.2nn
+		webui	//50090
+	4.historyServer
+		webui	//19888
+	5.resourcemanager
+		webui	//8088
+	6.nodemanager
+		webui	//8042
+-------------------------------------------------------------------------------
+commission | decommission
+-------------------------------
+	1.服役，退役
+	
+-------------------------------
+dfs.hosts
+----------
+	决定哪个数据节点能够连接到名称结点
+
+dfs.hosts.exclude
+------------
+	决定哪个数据节点不能连接到名称结点
+
+dfs.hosts	dfs.hosts.exclude
+--------------------------------------
+0		0			//不能连
+0		1			//不能连
+1		0			//能连
+1		1			//能连，但会退役
+
+
+配置dfs.hosts和dfs.hosts.exclude文件
+-----------------------------------
+	1.创建/soft/hadoop/etc/dfs-hosts-include.conf文件
+		s200
+		s300
+	2.创建/soft/hadoop/etc/dfs-hosts-exclude.conf文件
+		s300
+		s400
+	3.编辑配置文件
+	[hdfs-site.xml]
+	dfs.hosts=/soft/hadoop/etc/dfs-hosts-include.conf
+	dfs.hosts.exclude=/soft/hadoop/etc/dfs-hosts-exclude.conf
+	4.分发文件到所有节点（包括三个文件）
+	5.刷新节点
+		$>hdfs dfsadmin -refreshNodes
+
+VERSION
+-----------------------------------
+	1.clusterID-xxx(namenode | datanode)
+	2.storageID=xxx(datanode)
+	3.cTime			//集群创建时间
+	4.acl			//access control list,访问控制列表

@@ -1,0 +1,22 @@
+hdfs
+-------------------
+	1.client
+		-put -get -mv
+		hadoop fs -createSnapshot /user/ubuntu/data snap-1
+					  /user/ubuntu/data/.sanpshot/snap-1/
+		hadfs dfs -clrSnapshot
+	2.hdfs dfsadmin
+		-safemode
+		-refreshNodes
+		slaves		//dfs.host + dfs.hosts.exclude
+		-allowSnapshot
+		-disallowSnapshot
+		-clsSpaceQuota		//清除空间配额
+		-clsQuota		//清除目录配额
+	3.查看fsimage镜像文件
+		$>hdfs oiv -i xxxImage -o xxx.xml -p XML
+	4.查看edit_xxx编辑日志
+		$>hdfs oev -i xxx_edit -o xxx.xml -p XML
+
+----------------------------------------
+hadoop fs 完全等价于 hdfs dfs

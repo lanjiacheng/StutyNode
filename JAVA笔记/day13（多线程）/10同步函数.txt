@@ -1,0 +1,35 @@
+一、同步函数的格式：
+在函数修饰符加入synchronized，例如：
+public synchronized void run()
+{
+	//同步代码部分
+}
+
+二、同步函数的锁：
+同步函数使用的锁是this，也就是DI调用该同步函数的对象，就是这个同步函数的锁
+
+三、同步代码块和同步函数的区别：
+
+同步函数使用的锁是固定的this
+同步代码块使用的锁是任意的对象
+
+建议使用同步代码块
+
+四、静态同步函数：
+1.格式：用synchronized static 来修饰函数，形如：
+public static synchronized void run()
+{
+	//同步代码内容
+}
+
+2.静态同步函数的锁：
+静态同步函数的锁就是该函数所属的类的类字节码对象
+该类字节码对象是类一加载进内存就根据对应该类字节码文件创建的描述该类字节码文件的对象
+而且该描述字节码的类是Class，也就是类字节码文件的对象都是Class的对象
+
+该描述类字节码的对象的获取方法：
+1.通过类的对象的getClass方法来获取：Demo d=new Demo();Class clazz=d.getClass();
+2.通过类的来获取：Class clazz =Demo.class;		//在java，每个类都默认继承一个父
+							//类，并从父类继承一个getClass方
+							//法，也继承一个静态成员class，该
+							//静态成员存储的是Class类对象

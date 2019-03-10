@@ -1,0 +1,1018 @@
+
+<link rel="stylesheet" href="http://static.blog.csdn.net/code/prettify.css" />
+<script type="text/javascript" src="http://static.blog.csdn.net/code/prettify.js"></script>
+
+<script type="text/javascript">
+    var username = "LiuMiao1128";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/liumiao1128";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+
+    var fileName = '52449683';
+    var commentscount = 0;
+    var islock = false
+
+   window.quickReplyflag = true;
+            
+             var isBole = false;
+            
+
+</script>
+
+<!DOCTYPE html>
+<html>
+  <head>    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script> 
+   
+     <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />    
+     <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+
+
+    <script src="http://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+     <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+      <script src="//csdnimg.cn/rabbit/tracking-ad/main.js"></script>
+
+    <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">
+    <link rel="stylesheet" href="http://csdnimg.cn/public/common/libs/bootstrap/css/bootstrap.css">
+ 	<link rel="stylesheet" href="http://csdnimg.cn/public/static/css/avatar.css">
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/common.css">
+    <!-- [if IE 7]-->
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/font-awesome.min.css">
+    <!-- [endif]-->
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/main.css">
+    
+     <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/jquery.rollbar.css">
+    <link rel="stylesheet" href="http://static.blog.csdn.net/skin/skin2-template/css/style.css">
+    
+    
+    <!-- [if lt IE 9]-->
+    <script src="http://static.blog.csdn.net/skin/skin2-template/js/libs/html5shiv.min.js"></script>
+    <!-- [endif]-->
+	<script src="http://static.blog.csdn.net/scripts/skintemplatecommon.js" type="text/javascript"></script>
+
+    <script src="http://static.blog.csdn.net/scripts/skintemplateprovider.js" type="text/javascript"></script>      
+	<script src="http://static.blog.csdn.net/scripts/skintemplatecomment.js" type="text/javascript"></script>
+
+    <script src="http://c.csdnimg.cn/rabbit/cnick/cnick.js" type="text/javascript"></script>      
+   
+       
+    
+
+      <script type="text/javascript">
+          $(function () {
+              setTimeout(function () {
+                  $(".mess_name").each(function (index, item) {
+                      var u = $(this).text().split('：')[0].toString().replace("回复", "")
+                      var thisComment = $(this);
+                      if (u) {
+                          $.getJSON("https://passport.csdn.net/get/nick?callback=?", { users: u }, function (a) {
+                              if (a != null && a.data != null && a.data.length > 0) {
+                                  nick = a.data[0].n;
+                                  if (u != nick) {
+                                      thisComment.text(thisComment.text().replace(u, nick));
+                                  }
+                              }
+                          });
+                      }
+                  });
+
+                  $(".username").each(function (index, item) {
+                      var u = $(this).text().split('：')[0].toString().replace("回复", "")
+                      var thisComment = $(this);
+                      if (u) {
+                          $.getJSON("https://passport.csdn.net/get/nick?callback=?", { users: u }, function (a) {
+                              if (a != null && a.data != null && a.data.length > 0) {
+                                  nick = a.data[0].n;
+                                  if (u != nick) {
+                                      thisComment.text(thisComment.text().replace(u, nick));
+                                  }
+                              }
+                          });
+                      }
+                  });
+
+              }, 200);
+
+          });
+      </script>
+
+    <title>为VMware虚拟机内安装的Ubuntu 16.04设置静态IP地址 - 博客频道 - CSDN.NET</title>	
+  </head>
+  <body>
+
+<div class="J_adv" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072">
+			 <script id="popuLayer_js_q" src="http://ads.csdn.net/js/popuLayer.js" defer="defer"  type="text/javascript"></script>
+		    <div id="layerd" style="position: fixed;bottom:0px;right:0px;line-height:0px;z-index:1000">
+			    <div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 --><div id="cpro_u2895327"></div></div>
+		    <script>  document.getElementById("popuLayer_js_q").onload=function(){      var styObjd=styObj={width:"300px","height":parseInt(250)+28};window.CSDN.Layer.PopuLayer("#layerd",{storageName:"layerd",styleObj:styObjd,total:50,expoire:1000*60});  }</script><!-- 投放代码 --><script type="text/javascript">                /*服务器频道首页置顶Banner960*90，创建于2014-7-3*/    (window.cproArray = window.cproArray || []).push({        id: "u2895327"      });  </script>  <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+	     
+	</div>
+
+       <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+   <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+    <div class="blog_left">
+      <div class="blog_l_c">
+        <h2 class="blog_l_t">咸鱼的挣扎</h2>
+        <h6 class="blog_l_sign">为了更好的让自己成长，做好自己的笔记~</h6>
+        <div class="item_wrap">
+          <dl class="item_l">
+            <dt class="item">71</dt>
+            <dd class="item_name">原创</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">6</dt>
+            <dd class="item_name">转载</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">0</dt>
+            <dd class="item_name">译文</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">11</dt>
+            <dd class="item_name">评论</dd>
+          </dl>
+          <dl class="item_l">
+            <dt class="item">27941</dt>
+            <dd class="item_name">访问</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="blog_copyright">
+        <p><span>京 ICP 证 070598 号</span><img src="http://static.blog.csdn.net/skin/skin2-template/images/copyright.png" alt="img"></p>
+        <p>
+          Copyright © 1999-2016,
+          <br/>
+          CSDN.NET, All Rights Reserved
+        </p>
+       </div>
+    </div>
+    <div id="skin_m" class="skin_m">
+      <div id="skin_center" class="skin_center">
+          <div class="skin_center_t">
+                <h2 class="mod_most"></h2>
+                <!--include ../modules/mod_list.jade-->
+                <div class="skin_list">
+                  <dl class="list_c clearfix detail_list">
+                    <dt>
+                      <div class="date">
+                        <div class="date_t"><span>2016</span><em>九月</em></div>
+                        <div class="date_b">06</div>
+                      </div>
+                    </dt>
+                    <dd>
+                      <div class="skin_icon"><a href="javascript:;" class="set_reprint">转</a></div>
+                      <h3 class="list_c_t"><a href="/LiuMiao1128/article/details/52449683">为VMware虚拟机内安装的Ubuntu 16.04设置静态IP地址</a></h3>  
+                        <div class="list_c_Title">
+                          <p class="detail_p">
+                            <label></label>
+                         </p>
+                         <p class="read_r">
+                            <label><i class="fa fa-eye" style="cursor:default"></i><span style="cursor:default"> （2458）</span></label>
+                            <label><i class="fa fa-comment-o"style="cursor:default"></i><span  style="cursor:default"> （0）</span></label>
+                             
+                             
+
+                             
+                          </p>
+                        </div>
+                      <div class="skin_detail" id="article_content">
+                        <div class="markdown_views"><p>您的位置: Linux系统教程 &gt; Ubuntu系统 &gt; <br>
+为VMware虚拟机内安装的Ubuntu 16.04设置静态IP地址（NAT方式） <br>
+时间:2016-05-17来源:linux网站 作者:RJKD</p>
+
+<p>1.安装环境</p>
+
+<p>VMware 10.0.4 build-2249910</p>
+
+<p>Ubuntu 16.04 x86_64</p>
+
+<p>2.在VMware中，配置网络环境</p>
+
+<p>VMware在默认安装完成之后，会创建三个虚拟的网络环境：VMnet0、VMnet1和VMnet8。其类型分别为：桥接网络，Host-only和NAT。其中，NAT表示VMWware内安装的Ubuntu将会在一个子网中，VMware通过网络地址转换，通过物理机的IP上网。</p>
+
+<p>这里，我们选择NAT方式，来实现Ubuntu的静态IP地址配置。</p>
+
+<p>打开VMware，在顶部依次选择：编辑 &gt; 虚拟网路编辑器，打开虚拟网路编辑器：</p>
+
+<p><img src="http://img.blog.csdn.net/20160906135930849" alt="这里写图片描述" title=""> <br>
+首先，去掉VMnet0和VMnet1，只保留VMnet8。然后，去掉如下图中的“使用本地DHCP服务奖IP地址分配给虚拟机”： <br>
+<img src="http://img.blog.csdn.net/20160906140105172" alt="这里写图片描述" title=""> <br>
+ 此外，这里的子网IP为：192.168.8.0，子网掩码为：255.255.255.0，因此，在Ubuntu中，设置IP地址的时候，可以设置为192.168.8.x，x可以为1~255。</p>
+
+<p>选择“NAT设置”，打开NAT设置面板： <br>
+<img src="http://img.blog.csdn.net/20160906141405418" alt="这里写图片描述" title=""> <br>
+ 查看自己的网关地址，例如，此处的网关应该为：192.168.8.2。</p>
+
+<p>最后，在VMWare的虚拟机管理界面，选择Ubuntu的“编辑虚拟机设置”，打开Ubuntu这个虚拟的设置界面。</p>
+
+<p>选择网络适配器，然后确定网络连接选中的是“自定义”中的VMnet8(NAT模式)： <br>
+<img src="http://img.blog.csdn.net/20160906141455615" alt="这里写图片描述" title=""> <br>
+ 完成以上步骤，VMWare的网络环境也就设置完成。</p>
+
+<p>3.为Ubuntu设置静态IP地址 <br>
+3.1.通过网路管理面板设置IP</p>
+
+<p>在Ubuntu桌面的右上角，点击网络图标，然后选择“Edit Connections”： <br>
+<img src="http://img.blog.csdn.net/20160906141538021" alt="这里写图片描述" title=""> <br>
+ Step 1 点击“Edit”按钮，打开编辑页面</p>
+
+<p>Step 2 Method：选择Manual</p>
+
+<p>Step 3 将IP地址填入Addresses栏 <br>
+<img src="http://img.blog.csdn.net/20160906141620584" alt="这里写图片描述" title=""> <br>
+ 这里，我们设置的IP地址为： IP： 192.168.8.100 子网掩码： 255.255.255.0 网关： 192.168.8.2</p>
+
+<p>然后，选择保存。</p>
+
+<p>最后，点击Ubuntu桌面右上角的网络图标，选择“Disconnect”，断开连接。然后再打开该菜单，选择”Connect”，即可连接上网。 <br>
+3.2.通过Terminal命令行来设置IP地址</p>
+
+<p>打开Ubuntu的终端，输入：</p>
+
+<p>sudo gedit /etc/network/interfaces</p>
+
+<p>表示使用gedit编辑器打开interfaces文件。 在打开的文件中，若有内容，先全部删除。然后输入如下代码：</p>
+
+<p>auto lo <br>
+iface lo inet loopback</p>
+
+<p>auto ens33 <br>
+iface ens33 inet static <br>
+address 192.168.8.100 <br>
+netmask 255.255.255.0 <br>
+gateway 192.168.8.2</p>
+
+<p>如下图所示： <br>
+<img src="http://img.blog.csdn.net/20160906142640750" alt="这里写图片描述" title=""> <br>
+ 然后，配置DNS服务器：</p>
+
+<p>sudo gedit /etc/resolv.conf</p>
+
+<p>在里面填入阿里的DNS：223.5.5.5</p>
+
+<p>nameserver 223.5.5.5</p>
+
+<p>保存</p>
+
+<p>关闭gedit（先保存，后关闭），然后，在命令行中输入：</p>
+
+<p>sudo /etc/init.d/networking restart</p>
+
+<p>重启网络即可。</p>
+
+<p>4.可能会遇到的问题 <br>
+4.1.通过命令行设置网络时的问题</p>
+
+<p>如果在重启网络的时候，出现如下的错误：</p>
+
+<p>[….] Restarting networking (via systemctl): networking.serviceJob for networking.service failed because the control process exited with error code. See “systemctl status networking.service” and “journalctl -xe” for details. <br>
+<img src="http://img.blog.csdn.net/20160906142710215" alt="这里写图片描述" title=""> <br>
+（1）极有可能是在编写interfaces文件的时候，拼写错误： <br>
+<img src="http://img.blog.csdn.net/20160906142737345" alt="这里写图片描述" title=""> <br>
+ 再次打开interfaces文件，可以看到，出现了多处拼写错误：</p>
+
+<p>sudo gedit /etc/network/interfaces <br>
+<img src="http://img.blog.csdn.net/20160906142802658" alt="这里写图片描述" title=""> <br>
+ 修改错误后，重启网络即可：</p>
+
+<p>sudo /etc/init.d/networking restart</p>
+
+<p>（2）在Ubuntu 16.04版本中，网卡的名称不是eth0，而是ens33。所以，在配置interfaces文件的时候，不要用eth0代替ens33，否则也会出现这个问题。当然，你可以通过ifconfig查看自己的网卡情况。 <br>
+<img src="http://img.blog.csdn.net/20160906142825716" alt="这里写图片描述" title=""> <br>
+ 4.2.重启系统之后，发现网络无法使用，右上角的网络图标点击之后显示“device not managed”</p>
+
+<p>解决方法：</p>
+
+<p>sudo gedit /etc/NetworkManager/NetworkManager.conf</p>
+
+<p>打开该文件，将“managed=false”修改为“managed=true”。</p>
+
+<p>重启network manager：</p>
+
+<p>sudo service network-manager restart</p>
+
+<p>即可解决问题。</p>
+
+<p>本文转自：<a href="http://www.linuxdiyf.com/linux/20707.html">http://www.linuxdiyf.com/linux/20707.html</a></p><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" /></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+                      </div>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="skin_nav">        
+                     <div class="skin_edit"><i class="fa fa-th-list"></i>
+                     <div class="nav_list nav_list_edit"><a href="/LiuMiao1128">文章列表</a></div>
+                  </div>
+                     
+                </div>
+                <div class="rssFix">
+        	        <a href="http://blog.csdn.net/LiuMiao1128/rss/list" class="column"  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])"><i class="fa fa-rss"></i></a>
+                </div>        
+
+                <div id="goTopBtn" class="skin_backTop"><i class="fa fa-chevron-up"></i></div>
+        </div>
+        <div class="detail_b">
+          <p class="reprint_copy" style="display:none" id="copyright"></p>  
+		   <!--      
+          <div class="bole" style="display:none">
+            <h2 class="bole_t clearfix"><span>伯乐推荐</span>
+              <label>一共有<em>{bolecount}</em>位博乐进行推荐</label>
+            </h2>
+           {bolecomment}              
+          </div>		
+          -->  
+           <!-- style=""style=""-->
+          <h2 class="praise" >
+            <label id="digg" ArticleId="52449683" onclick="btndigga();" ><span id="btnDigg">顶</span><em>0</em></label>
+            <label id="bury" onclick="btnburya();"><span id="btnBury"   >踩</span><em>0</em></label>
+          </h2>           
+                <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+                <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+           
+             <script type="text/javascript">
+                 function btndigga() {
+                     $(".tracking-ad[data-mod='popu_222'] a").click();
+                 }
+                 function btnburya() {
+                     $(".tracking-ad[data-mod='popu_223'] a").click();
+                 }
+
+                 $(function () {
+                     if ($(".markdown_views").length > 0) {
+			if($("#fromjs").length==0)
+			{
+                         $('pre.prettyprint code').each(function () {
+                             var lines = $(this).text().split('\n').length;
+                             var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+                             $(this).addClass('has-numbering').parent().append($numbering);
+                             for (i = 1; i <= lines; i++) {
+                                 $numbering.append($('<li/>').text(i));
+                             };
+                             $numbering.fadeIn(1700);
+                         });
+			}
+                     }
+                     else {
+                         $("#article_content pre").each(function () {
+                             var $this = $(this);
+                             if ($this.attr("class") != undefined) {
+                                 if ($this.attr("class").indexOf("brush:") != -1) {
+                                     var lang = $this.attr("class").split(';')[0].split(':')[1];
+                                     $this.attr('name', 'code');
+                                     $this.attr('class', lang);
+                                 }
+                                 if ($this.attr("class")) {
+                                     $this.attr('name', 'code');
+                                 }
+                             }
+                         });
+                         $('#article_content textarea[name=code]').each(function () {
+                             var $this = $(this);
+                             if ($this.attr("class").indexOf(":") != -1) {
+                                 $this.attr("class", $this.attr("class").split(':')[0]);
+                             }
+                         });
+                         dp.SyntaxHighlighter.HighlightAll('code');
+                         $('.highlighter').addClass('dp-highlighter');
+                         if (!window.clipboardData) {
+                             setTimeout("setCopyBtn()", 500);
+                         }
+
+                         function __get_code_toolbar(snippet_id) {
+                             return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                                     + snippet_id
+                                     + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                                     + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                                     + snippet_id
+                                     + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+                         }
+
+                         $("[code_snippet_id]").each(function () {
+                             __s_id = $(this).attr("code_snippet_id");
+                             if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                                 __code_tool = __get_code_toolbar(__s_id);
+                                 $(this).prev().find(".tools").append(__code_tool);
+                             }
+                         });
+
+                         $(".bar").show();
+                     }
+                 });
+            </script>
+          <div class="blog_share">
+              <!--<i class="fa fa-qq"></i><i class="fa fa-weixin"></i><i class="fa fa-weibo"></i><i class="fa fa-renren"></i><i class="fa fa-qq"></i><i class="fa fa-weixin"></i>
+              <i class="fa fa-weibo"></i><i class="fa fa-renren"></i>-->                
+               <div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+                <a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+                <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+                <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+                </div>
+                <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+                <!-- Baidu Button END -->
+          </div>
+          <div class="forward_back">
+            <div class="back fl"><a href="javascript:void(0);" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='http://blog.csdn.net/LiuMiao1128/article/details/52443996';"><span><i class="fa fa-arrow-left"></i></span><em>兄弟会精英班，第一天笔记</em></a></div><div class="forward fr"><a href="javascript:void(0);" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='http://blog.csdn.net/LiuMiao1128/article/details/52450772';"><em>在Ubuntu 16.04下安装nodejs</em><span><i class="fa fa-arrow-right"></i></span></a></div>
+          </div>
+            <div>
+                <script type="text/javascript">
+    /*博客内容页下方Banner2-728*90，创建于2014-7-3*/
+    var cpro_id = "u1607657";
+</script>
+<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+            </div>            
+        <!--  
+		{articleinsamecategory}
+            -->
+          <div class="comment" id="comment_form">
+              <div id="commentsbmitarear">
+                    <h2 class="comment_t">发表评论</h2>
+                    <dl class="publish_comment clearfix" id="commentbox">
+                      <dt><a href="http://my.csdn.net/"><img src=""></a></dt>
+                      <dd>                 
+			          <form action="/LiuMiao1128/comment/submit?id=52449683" method="post" onsubmit="return subform(this);" id="commentform">
+					        <textarea class="publish_txt" id="comment_content"></textarea>
+					        <div class="publish clearfix">
+					
+					          <div class="publish_l"><i class="fa fa-code J_code"></i></div>
+
+					          <input type="hidden" id="comment_replyId" name="comment_replyId">
+					          <input type="hidden" id="comment_userId" name="comment_userId" value="">
+					          <input type="hidden" id="commentId" name="commentId" value="">
+					  
+					          <a href="javascript:void(0);" class="publish_btn"> 发表评论</a>&nbsp;&nbsp;<span id="tip_comment" style="color: Red; display: none;"></span>
+					
+					          <div class="comment-code-pop J_lang_list" id="lang_list" code="code"><a href="#html" style="width:95px;" class="long_name">HTML/XML</a><a href="#objc" style="width:95px;" class="long_name">objective-c</a><a href="#delphi" style="width:58px;" class="zhong_name">Delphi</a><a href="#ruby" class="zhong_name">Ruby</a><a href="#php">PHP</a><a href="#csharp" class="duan_name">C#</a><a style=" border-right: none;" href="#cpp" class="duan_name">C++</a><a style=" border-bottom:none;width:95px;" href="#javascript" class="long_name">JavaScript</a><a style=" border-bottom:none;width:95px;" href="#vb" class="long_name">Visual Basic</a><a style=" border-bottom:none;" href="#python" class="zhong_name">Python</a><a style=" border-bottom:none;" href="#java" class="zhong_name">Java</a><a style="border-bottom:none;" href="#css" class="duan_name">CSS</a><a style="border-bottom:none;" href="#sql" class="duan_name">SQL</a><a style="border:none; " href="#plain" class="duan_name">其它</a><span class="arrb"></span></div>
+					        </div>
+			         </form>
+                      </dd>
+                    </dl>
+               </div>
+              <a name="comments"></a>
+            <div class="comment_list" id="comment_list"></div>
+            <div  style="height:60px">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="skin_right">
+      <div id="skin_r_wrap" class="skin_r_wrap">
+        <div id="skin_r" class="skin_r"><i id="arrow_r" class="fa fa-arrow-right"></i>
+          <div class="mess"><a href="http://my.csdn.net/LiuMiao1128"><img src="http://avatar.csdn.net/1/9/F/1_liumiao1128.jpg" alt="img" class="head"></a>
+            <p class="mess_name">LiuMiao1128</p>
+            <div class="grade">
+                <p><span>等级：</span><img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog3.png"></p>
+                <p><span>排名：</span><span>千里之外</span></p>
+            </div>
+            <div class="blog_medal"><a href="http://blog.csdn.net/experts/rule.html"></a>
+              <div class="medal_c"><a href='javascript:void(0);'><img src='http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/zhuanlandaren.png' alt='img'></a><a href='javascript:void(0);'><img src='http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/chizhiyiheng.png' alt='img'></a></div>
+              <div class="attention">
+			  <a href="javascript:void(0);" id="span_add_follow"><i class="fa fa-plus"></i><span>加关注</span></a>
+			  <a href="javascript:void(0);" onClick="window.open('http://msg.csdn.net/letters/model?receiver=LiuMiao1128','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"><i class="fa fa-envelope-o"></i><span>发私信</span></a>			  			 
+			  </div>   
+			   <div class="contact"></div>         
+            </div>
+          </div>
+          <div class="classify">     
+             <!--
+            <dl class="classify_list js_list">
+	             <dt>
+	                  <div class="js_column"><i class="fa fa-th"></i><a href="#" class="column">文章分类</a></div>
+	            </dt>
+            </dl>
+
+                  <dl class="classify_list">
+              <dt><i class="fa fa-play-circle"></i><a  href="/LiuMiao1128/blog/course" class="column">我的课程</a></dt>
+            </dl> 
+		    -->	    	
+            
+            
+                
+               
+               <dl class="classify_list">
+                     <div class="article_search">
+                         <div class="article_search_c">
+                            <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank"  data-mod="popu_306">
+                                <input type="text" id="inputSearch" placeholder="文章搜索"><i class="fa fa-search" id="btnSubmit"></i>
+                            </form>
+                         </div>
+                     </div>
+               </dl>  
+			<script type="text/javascript">
+
+		   
+		    $(function () {
+		        $("#btnSubmit").unbind("click");
+		        $("#btnSubmit").click(function () {           
+		            search();
+		        });
+
+		        $("#frmSearch").submit(function () {           
+		            search();
+		            return false;
+		        });
+
+		        function search()
+		        {
+		            if ($("#inputSearch").val() == "") {               
+		                alert("请录入搜索关键词！");                         
+		                return false;
+		            }
+		            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+		            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+		            window.location.href = url;
+		        }   
+		    });
+		</script>
+                    
+            <dl class="classify_list">
+              <dt><i class="fa fa-file-text"></i><a  href="/LiuMiao1128/blog/column" class="column">博客专栏</a> </dt>
+            </dl>  
+                    
+           <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-th"></i><span class="column">文章分类</span></div>
+                <ul id="article_list0" class="article_list">
+				  <li><a href="/LiuMiao1128/article/category/6319402" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">PHP技术分类</a><span>（9）</span></li><li><a href="/LiuMiao1128/article/category/6319421" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">PHP-极光推送</a><span>（2）</span></li><li><a href="/LiuMiao1128/article/category/6348034" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">laravel笔记</a><span>（1）</span></li><li><a href="/LiuMiao1128/article/category/6403156" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">兄弟会精英班</a><span>（17）</span></li><li><a href="/LiuMiao1128/article/category/6439664" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">mysql数据库优化</a><span>（1）</span></li><li><a href="/LiuMiao1128/article/category/6467996" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">linux</a><span>（19）</span></li><li><a href="/LiuMiao1128/article/category/6482606" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">PHPsotrm</a><span>（1）</span></li><li><a href="/LiuMiao1128/article/category/6495314" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">PHP面试题总结</a><span>（2）</span></li><li><a href="/LiuMiao1128/article/category/6518080" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">java</a><span>（22）</span></li>                  
+                </ul>
+              </dt>
+              <dd style="display:none"><a href="#" class="article_add"><i class="fa fa-plus"></i></a></dd>
+            </dl>
+            
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-calendar"></i><span class="column">文章存档</span></div>
+                <ul id="article_list1" class="article_list">
+                 
+                    <li><a href="/LiuMiao1128/article/month/2017/04">2017年04月</a><span>(5)</span></li>
+                
+                    <li><a href="/LiuMiao1128/article/month/2017/03">2017年03月</a><span>(2)</span></li>
+                
+                    <li><a href="/LiuMiao1128/article/month/2016/11">2016年11月</a><span>(29)</span></li>
+                
+                    <li><a href="/LiuMiao1128/article/month/2016/10">2016年10月</a><span>(16)</span></li>
+                
+                    <li><a href="/LiuMiao1128/article/month/2016/09">2016年09月</a><span>(21)</span></li>
+                
+                    <li><a href="/LiuMiao1128/article/month/2016/08">2016年08月</a><span>(3)</span></li>
+                
+                    <li><a href="/LiuMiao1128/article/month/2016/07">2016年07月</a><span>(2)</span></li>
+                
+                </ul>
+              </dt>
+            </dl>
+                 
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-eye"></i><span class="column">阅读排行</span></div>
+                <ul class="article_list">
+                
+                 <li><a href="/liumiao1128/article/details/52450772">在Ubuntu 16.04下安装nodejs</a><span>（2916）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/51956871">极光通知推送PHP代码及调用方法</a><span>（2915）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/52449683">为VMware虚拟机内安装的Ubuntu 16.04设置静态IP地址</a><span>（2452）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/52119104">laravel 基础笔记~快速入门</a><span>（1052）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/53118061">Linux 之 企业大型监控系统Zabbix应用初级篇</a><span>（866）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/53055693">linux 之 Linux服务器网卡绑定</a><span>（783）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/52510955">Node.js HTTP 使用详解</a><span>（729）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/52932116">PHPstorm 2016.2.2 破解方法</a><span>（720）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/52959017">Linux 之 IP协议详解</a><span>（688）</span></li>
+                 
+                 <li><a href="/liumiao1128/article/details/53055641">linux 之 基础API底层执行过程</a><span>（678）</span></li>
+                 
+                </ul>
+              </dt>
+            </dl>
+            
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-comments"></i><span class="column">评论排行</span></div>
+                <ul class="article_list">
+                  
+                  <li><a href="/liumiao1128/article/details/51956871">极光通知推送PHP代码及调用方法</a><span>（7）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52947849">Linux 之 TCP/IP协议</a><span>（2）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52948049">Linux 之 FTP服务实战应用进阶</a><span>（1）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52959017">Linux 之 IP协议详解</a><span>（1）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52467934">兄弟会第三天笔记</a><span>（0）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/70507336">PHP 魔术方法</a><span>（0）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52449683">为VMware虚拟机内安装的Ubuntu 16.04设置静态IP地址</a><span>（0）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52443996">兄弟会精英班，第一天笔记</a><span>（0）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52297246">php开发环境</a><span>（0）</span></li>
+                  
+                  <li><a href="/liumiao1128/article/details/52119104">laravel 基础笔记~快速入门</a><span>（0）</span></li>
+                  
+                </ul>
+              </dt>
+            </dl>
+                
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-list-ol"></i><span class="column">推荐文章</span></div>
+                <ul class="article_list">
+                 <ul>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/74010981" target="_blank">* CSDN日报20170630——《降薪求职，到底该不该？》</a></li>
+<li><a href="http://blog.csdn.net/zwluoyuxi/article/details/73977651" 
+target="_blank">* 从源码剖析PopupWindow 兼容Android 6.0以上版本点击外部不消失</a></li>
+<li><a href="http://blog.csdn.net/briblue/article/details/73928350"target="_blank">* 轻松学，Java 中的代理模式及动态代理</a></li>
+<li><a href="http://blog.csdn.net/liyuanxiang1984/article/details/73928254" 
+target="_blank">* ArcGIS水文分析实战教程——河流提取与河网分级</a></li>
+<li><a href="http://blog.csdn.net/liuchonge/article/details/73649251" 
+target="_blank">* Tensorflow中使用TFRecords高效读取数据--结合NLP数据实践</a></li>
+<li><a href="http://blog.csdn.net/broadview2006/article/details/73839579" 
+target="_blank">* 每周荐书：MyBatis、并行编程、Ansible（评论送书）</a></li>
+
+</ul>
+                </ul>
+              </dt>
+            </dl>
+                  
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-commenting"></i><span class="column">最新评论</span></div>
+                <ul class="article_list new_comment">
+                  
+                    <li>                    
+                    <p><a href="/liumiao1128/article/details/51956871">极光通知推送PHP代码及调用方法</a></p>                   
+                    <p><a href="/daqixiashi" class="reply_name">daqixiashi</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>感谢楼主</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">极光通知推送PHP代码及调用方法</a></p>                   
+                    <p><a href="/maple_2016" class="reply_name">maple_2016</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>楼主,这个要怎么调用呀?</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">极光通知推送PHP代码及调用方法</a></p>                   
+                    <p><a href="/daqixiashi" class="reply_name">daqixiashi</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>哦哦 我才看到 里面有php的sdk</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">极光通知推送PHP代码及调用方法</a></p>                   
+                    <p><a href="/daqixiashi" class="reply_name">daqixiashi</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>版主 我想问一下，是什么都不用导入，直接新建一个php类，把你上面的代码直接放进去然后调用是吗？</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">极光通知推送PHP代码及调用方法</a></p>                   
+                    <p><a href="/LiuMiao1128" class="reply_name">LiuMiao1128</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>@mickey_angel:$data = 'all';          //目标用户终端手机的平...</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">极光通知推送PHP代码及调用方法</a></p>                   
+                    <p><a href="/mickey_angel" class="reply_name">mickey_angel</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>我的需求是 ：1. 推送给全部用户 2.推动给某地区的用户 3.推动给某一个用户用户是我的应用的注册...</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="">极光通知推送PHP代码及调用方法</a></p>                   
+                    <p><a href="/mickey_angel" class="reply_name">mickey_angel</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>我的需求是 ：1. 推送给全部用户 2.推动给某地区的用户 3.推动给某一个用户用户是我的应用的注册...</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="/liumiao1128/article/details/52959017">Linux 之 IP协议详解</a></p>                   
+                    <p><a href="/sky15732625340" class="reply_name">sky15732625340</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>学习了。</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="/liumiao1128/article/details/52948049">Linux 之 FTP服务实战应用进阶</a></p>                   
+                    <p><a href="/sky15732625340" class="reply_name">sky15732625340</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>美文。</i></p>                    
+                  </li>      
+                 
+                    <li>                    
+                    <p><a href="/liumiao1128/article/details/52947849">Linux 之 TCP/IP协议</a></p>                   
+                    <p><a href="/sky15732625340" class="reply_name">sky15732625340</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>非常精彩</i></p>                    
+                  </li>      
+                           
+                </ul>
+              </dt>
+            </dl>
+                
+
+            <!--
+           [startblogcolumn]            
+             [startsearch]   
+               <dl class="classify_list">
+                     <div class="article_search">
+                         <div class="article_search_c">
+                            <form id="frmSearch" action="http://so.csdn.net/search" class="form_search csdn-tracking-statistics" target="_blank"  data-mod="popu_306">
+                                <input type="text" id="inputSearch" placeholder="文章搜索"><i class="fa fa-search" id="btnSubmit"></i>
+                            </form>
+                         </div>
+                     </div>
+               </dl>  
+			<script type="text/javascript">
+
+		   
+		    $(function () {
+		        $("#btnSubmit").unbind("click");
+		        $("#btnSubmit").click(function () {           
+		            search();
+		        });
+
+		        $("#frmSearch").submit(function () {           
+		            search();
+		            return false;
+		        });
+
+		        function search()
+		        {
+		            if ($("#inputSearch").val() == "") {               
+		                alert("请录入搜索关键词！");                         
+		                return false;
+		            }
+		            //var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";           
+		            var url = "https://www.baidu.com/s?wd=" + encodeURIComponent($("#inputSearch").val()) + "%20site%3Ablog.csdn.net"
+		            window.location.href = url;
+		        }   
+		    });
+		</script>
+            [endsearch]   
+            
+            [startspecialcolumn]        
+            <dl class="classify_list">
+              <dt><i class="fa fa-file-text"></i><a  href="/LiuMiao1128/blog/column" class="column">博客专栏</a> </dt>
+            </dl>  
+            [endspecialcolumn]   
+            
+             [startcategory]        
+           <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-th"></i><span class="column">文章分类</span></div>
+                <ul id="article_list0" class="article_list">
+				  {articlecategorys}                  
+                </ul>
+              </dt>
+              <dd style="display:none"><a href="#" class="article_add"><i class="fa fa-plus"></i></a></dd>
+            </dl>
+            [endcategory]
+
+            [startarchive]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-calendar"></i><span class="column">文章存档</span></div>
+                <ul id="article_list1" class="article_list">
+                 [startlist]
+                    <li><a href="/{0}/article/month/{1}/{2}">{1}年{2}月</a><span>({3})</span></li>
+                [endlist]
+                </ul>
+              </dt>
+            </dl>
+             [endarchive]    
+                [startviewcountarticles]    
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-eye"></i><span class="column">阅读排行</span></div>
+                <ul class="article_list">
+                [startlist]
+                 <li><a href="{columnarticleurl}">{columnarticletitle}</a><span>（{columnarticlecount}）</span></li>
+                 [endlist]
+                </ul>
+              </dt>
+            </dl>
+            [endviewcountarticles]
+                [startcommentcountarticles]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-comments"></i><span class="column">评论排行</span></div>
+                <ul class="article_list">
+                  [startlist]
+                  <li><a href="{columnarticleurl}">{columnarticletitle}</a><span>（{columnarticlecommentcount}）</span></li>
+                  [endlist]
+                </ul>
+              </dt>
+            </dl>
+                [endcommentcountarticles]
+                [starthomepagearticles]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-list-ol"></i><span class="column">推荐文章</span></div>
+                <ul class="article_list">
+                 {cloumcontent}
+                </ul>
+              </dt>
+            </dl>
+                  [endhomepagearticles]
+                [startnewcomments]
+            <dl class="classify_list js_list">
+              <dt>
+                <div class="js_column_wrap"><i class="fa fa-commenting"></i><span class="column">最新评论</span></div>
+                <ul class="article_list new_comment">
+                  [startlist]
+                    <li>                    
+                    <p><a href="{articleurl}">为VMware虚拟机内安装的Ubuntu 16.04设置静态IP地址</a></p>                   
+                    <p><a href="/{commentusername}" class="reply_name">{commentusername}</a><span>回复：</span></p>
+                    <p class="reply_c"><em></em><i>{commentcontent}</i></p>                    
+                  </li>      
+                 [endlist]          
+                </ul>
+              </dt>
+            </dl>
+                [endnewcomments]
+                [startcustom]
+                   <dl class="classify_list js_list">
+                      <dt>
+                        <div class="js_column_wrap"><i class="fa fa-cube"></i><span class="column">{columntitle}</span></div>
+                        <ul class="article_list">
+                         {columcontent}
+                        </ul>
+                      </dt>
+                    </dl>
+                [endcustom]
+         [endblogcolumn]    
+            -->
+
+            <!--
+            <dl class="classify_list">
+              <dt class="rss"><i class="fa fa-rss"></i>			 
+			  <span class="column">
+			   	<a href="http://blog.csdn.net/LiuMiao1128/rss/list" class="column"  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">RSS订阅</a>
+			   </span>
+			  </dt>
+            </dl>
+            -->
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="skin_right_small" class="skin_right_small">
+      <div class="skin_r_small"><i id="faNavicon" class="fa fa-navicon"></i>
+        <div class="head_small"><a href="http://my.csdn.net/LiuMiao1128"><img src="http://avatar.csdn.net/1/9/F/1_liumiao1128.jpg" alt="img"></a></div>
+        <ul class="rSmallList">  
+           
+                
+                  <li class="small_article"><i class="fa fa-file-text"></i><a href="/LiuMiao1128/blog/column" class="small_column">博客专栏</a></li>
+                    
+                  <li class="small_article js_smallArticle"><i class="fa fa-th"></i><a href="#" class="small_column">文章分类</a></li>
+                
+                  <li class="small_article js_smallArticle"><i class="fa fa-calendar"></i><a href="#" class="small_column">文章存档</a></li>
+                
+                  <li class="small_article js_smallArticle"><i class="fa fa-eye"></i><a href="#" class="small_column">阅读排行</a></li>
+              
+                  <li class="small_article js_smallArticle"><i class="fa fa-comments"></i><a href="#" class="small_column">评论排行</a></li>
+              
+                  <li class="small_article js_smallArticle"><i class="fa fa-list-ol"></i><a href="#" class="small_column">推荐文章</a></li>
+              
+                  <li class="small_article js_smallArticle"><i class="fa fa-commenting"></i><a href="#" class="small_column">最新评论</a></li>
+                      
+          <!-- 
+           [startblogcolumnsmall]   
+               [startspecialcolumn]    
+                  <li class="small_article"><i class="fa fa-file-text"></i><a href="/LiuMiao1128/blog/column" class="small_column">博客专栏</a></li>
+               [endspecialcolumn]  
+                [startcategory]     
+                  <li class="small_article js_smallArticle"><i class="fa fa-th"></i><a href="#" class="small_column">文章分类</a></li>
+                [endcategory]     
+              [startarchive]
+                  <li class="small_article js_smallArticle"><i class="fa fa-calendar"></i><a href="#" class="small_column">文章存档</a></li>
+              [endarchive]
+              [startviewcountarticles]  
+                  <li class="small_article js_smallArticle"><i class="fa fa-eye"></i><a href="#" class="small_column">阅读排行</a></li>
+              [endviewcountarticles]  
+              [startcommentcountarticles]
+                  <li class="small_article js_smallArticle"><i class="fa fa-comments"></i><a href="#" class="small_column">评论排行</a></li>
+              [endcommentcountarticles]
+              [starthomepagearticles]
+                  <li class="small_article js_smallArticle"><i class="fa fa-list-ol"></i><a href="#" class="small_column">推荐文章</a></li>
+              [endhomepagearticles]
+              [startnewcomments]
+                  <li class="small_article js_smallArticle"><i class="fa fa-commenting"></i><a href="#" class="small_column">最新评论</a></li>
+              [endnewcomments]
+              [startcustom]
+                  <li class="small_article js_smallArticle"><i class="fa fa-cube"></i><a href="#" class="small_column">{columntitle}</a></li>
+              [endcustom]
+          [endblogcolumnsmall]    
+          -->         
+        </ul>        
+      </div>
+    </div>
+	
+    <div id="mask"></div>
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/accordion.js"></script>
+    
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/jquery.rollbar.min.js"></script>
+    
+    <script type="text/javascript" src="http://static.blog.csdn.net/skin/skin2-template/js/apps/transition.js"></script>  
+     <script id="noticeScript" type="text/javascript" charset="utf-8" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" src="http://c.csdnimg.cn/public/common/toolbar/js/notify.js"></script>  
+    <!--script( type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js" )-->
+    <!--script( type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js" )-->
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>
+
+     <div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+    </div>
+    <div id="report_dialog">
+    </div>
+
+    <div id="popup_mask"></div>
+    <style  type="text/css">
+        #popup_mask
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            left: 0px;
+            top: 0px;
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+            display: none;
+        }
+
+         .skin_list  dl dd div ol {  
+        margin-left:15px;
+            }  
+
+       .skin_list dl dd div ol li {  
+         display:list-item;list-style-type:decimal;margin-left:15px;
+            }       
+
+    </style>     
+      
+        <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+        </div> 
+
+       <!-- 广告位开始 -->
+        <ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_code.css" />
+            <script type="text/javascript" src="http://static.blog.csdn.net/scripts/saveToCode.js"></script>     
+	<script type="text/javascript" src="//csdnimg.cn/rabbit/tracking-ad/main.js?75eacd8></script>
+  </body>
+</html>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>
+
+
+<script  type="text/javascript">
+    var fromjs=$("#fromjs");
+    if(fromjs.length>0)
+    {                  
+        $("#fromjs .markdown_views pre").addClass("prettyprint");       
+        prettyPrint();
+
+        $('pre.prettyprint code').each(function () {
+            var lines = $(this).text().split('\n').length;
+            var $numbering = $('<ul/>').addClass('pre-numbering').hide();
+            $(this).addClass('has-numbering').parent().append($numbering);
+            for (i = 1; i <= lines; i++) {
+                $numbering.append($('<li/>').text(i));
+            };
+            $numbering.fadeIn(1700);
+        });
+
+        $('.pre-numbering li').css("color","#999");             
+    }
+
+    $(function(){
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },500);         
+       
+
+    });
+
+</script>
+

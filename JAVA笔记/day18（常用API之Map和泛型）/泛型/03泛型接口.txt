@@ -1,0 +1,16 @@
+不多说，示例如下：
+interface Inter<T>{
+	public void show(T t);
+}
+
+class InterImpl2<Q> implements Inter<Q>{
+	public void show(Q q){
+		System.out.println("show:"+q);
+	}
+}
+
+class InterImpl1 implenets Inter<Person>{
+	public void show(Person p){
+		System.out.println(p);
+	}
+}

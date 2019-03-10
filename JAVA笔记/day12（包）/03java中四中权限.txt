@@ -1,0 +1,7 @@
+java中的四种权限：
+
+		public		protected	default		private
+同一类中	ok		ok		ok		ok
+同一包中	ok		ok		ok
+子类中（不同包）ok		ok
+不同包		ok

@@ -1,0 +1,15 @@
+1.修改默认的haddop临时目录
+--------------------------------
+	[core-site.xml]
+	hadoop.tmp.dir=/home/ljc/hadoop
+
+2.修改blocksize大小，默认是128m
+--------------------------------
+	[hdfs-site.xml]
+	dfs.blocksize=8m
+
+
+---------------------------------------------------------------------------------
+hdfs fsck /user/ubuntu/data/hello.txt	//查看block块文件信息
+hdfs getconf -namenodes			//查看名称结点主机
+hdfs dfs -getmerge -nl /user/ubuntu/data/hi.txt /user/ubuntu/data/hello.txt ~/merge.txt	//将文件合并下载

@@ -1,0 +1,12 @@
+函数的可变参数：
+其实就是一个数组，但是接收的是数组的元素
+自动将这些元素封装成数组，简化了调用者的书写
+注意：可变参数类型，必须定义在参数列表的结尾
+示例：
+public static int add(int a,int... arr){
+	int sum=0;
+	for(int i=0;i<arr.length;i++){
+		sum+=arr[i];
+	}
+	return sum;
+}

@@ -1,0 +1,11 @@
+Runtime：
+没有构造方法摘要，说明该类不可以创建对象
+又发现还有非静态方法，说明该类提供静态的返回该类对象的方法
+而且只有一个，说明Runtime类使用的是单例设计模式
+
+该类的一个应用示例：
+
+Runtime r=Runtime.getRuntime();
+Process p=r.exec("notepad.exe c:\\RuntimeDemo.txt");	//执行指定应用解析指定文件
+Thread.sleep(5000);
+p.destroy();					//消灭进程

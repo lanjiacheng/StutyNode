@@ -1,0 +1,92 @@
+package UDP;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Time;
+import java.sql.Timestamp;
+
+public class JDBCDemo_2 {
+	/*
+	 * PrepareStatement: 1.防止sql注入 2.实现批量处理 ppst.addBatch();
+	 * ppst.executeBatch();
+	 * 
+	 * 数据库的其他数据类型： date time datetime text blob longblob 对应的java建大类型： Date Time
+	 * Timestamp CLOB FileInputStream 说明： 日期 时间 时间戳 文本（流） 二进制大对象（流）
+	 */
+
+	public static void main(String[] args) throws Exception {
+		String driver = "com.mysql.jdbc.Driver";
+		Class.forName(driver);
+		String url = "jdbc:mysql://localhost:3306/mybase";
+		String user = "root";
+		String password = "ljc19980217.";
+		Connection conn = DriverManager.getConnection(url, user, password);
+		String sql = "insert into stus(id,name,age,password) values(?,?,?,?)";
+		// 创建预处理语句
+		// 使用预处理语句可以防止sql注入，批量处理时，使用预处理语句可以提高效率，因为只解析语义一次
+		PreparedStatement ppst = conn.prepareStatement(sql);
+		ppst.setInt(1, 100); // 此语句为添加记录，第一个参数是列数（从1开始），第二个参数是值
+		ppst.setString(2, "tome100");
+		ppst.setInt(3, 23);
+		ppst.setString(4, "123");
+		ppst.executeUpdate(); // 执行更新
+		for (int i = 2; i < 1000; i++) {
+			ppst.setInt(1, 100); // 此语句为添加记录，第一个参数是列数（从1开始），第二个参数是值
+			ppst.setString(2, "tome100");
+			ppst.setInt(3, 23);
+			ppst.setString(4, "123");
+			ppst.addBatch(); // 将以上操作组成的语句添加到预处理列表
+
+		}
+		ppst.executeBatch(); // 一次性提交以上所有操作语句
+
+		// 演示插入其他数据类型
+		ppst.setDate(3, new Date(System.currentTimeMillis()));
+		ppst.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+		ppst.setTime(5, new Time(System.currentTimeMillis()));
+		ppst.execute();
+
+		// 大对象存储演示
+		String sql2 = "insert into stus(id,pic) values(?,?)";
+		PreparedStatement ppst2 = conn.prepareStatement(sql2);
+		FileInputStream fis = new FileInputStream("e:/client.txt");
+		ppst2.setInt(1, 3);
+		ppst2.setBinaryStream(2, fis, fis.available());
+		ppst2.executeUpdate();
+
+		// 大对象读取演示：
+		String sql3 = "select id,name,pic from stus";
+		PreparedStatement ppst3 = conn.prepareStatement(sql3);
+		// 执行查询：
+		ResultSet rs = ppst3.executeQuery();
+		while (rs.next()) {
+			Integer id = rs.getInt("id");
+			String name = rs.getString("name");
+			InputStream is = rs.getBinaryStream("pic");
+			name = name == null ? "" : name;
+			System.out.println("id="+id+" name="+name);
+			if(is!=null){
+				FileOutputStream fos=new FileOutputStream("e:/"+id+"-"+name+".jpg");
+				byte[] buf=new byte[1024];
+				int len= -1;
+				while((len=is.read(buf))!=-1){
+					fos.write(buf, 0, len);
+				}
+				fos.close();
+				fis.close();
+			}
+		}
+
+		ppst3.close();
+		ppst2.close();
+		conn.close();
+
+	}
+
+}

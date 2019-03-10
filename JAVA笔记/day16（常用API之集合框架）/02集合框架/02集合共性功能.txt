@@ -1,0 +1,40 @@
+一、Collection的常见方法：
+
+1.添加：
+	boolean add(Object obj):添加一个对象
+	boolean addAll(Collection coll)：添加另一个集合中不同内容
+
+2删除：
+	boolean remove(object obj)：删除一个对象，会改变长度
+	boolean removeAll(Collection coll)：将两个集合中相同的元素从调用removeAll的集合中删除
+	void clear()：清空，长度变零
+
+3.判断：
+	boolean contains(Object obj)：判断是否包含对象
+	boolean containsAll(Collection coll)：判断该集合内容是否包含另一个集合的内容
+	boolean isEmpty():判断是否为空
+
+4.获取：
+	int size()：获取长度
+	Interactor iterator():获取集合的迭代器（一个对象）
+	迭代器方法：
+		boolean hasNext():如果集合中还有元素可以迭代，返回true，反之false
+		next():返回迭代的下一个元素
+		remove():从迭代器指向的collection中移除迭代器返回的最后一个元素
+	使用示例：
+		for(Interator it=cool.iterator();it.hasNext();){
+			sop(it.next());
+		}//遍历并打印集合所有元素
+迭代器的说明：
+	迭代器本质就一对象，该对象必须依赖于容器，因为每个容器的数据结构不同，所以迭代器
+	的实现方式不同，并且迭代器是在容器的内部实现的，对于使用容器者而言，具体的实现并不重要，只要通过
+	容器的方法获取到该实现的迭代器拿来使用就行了，该方法就是iterator方法。
+	Interator接口就是对所有的Collection容器进行元素取出的公共接口，也是迭代器实现的接口
+	实际上，该迭代器就是容器中的实现了Iterator接口的内部类，iterator()方法就是新建该内部类并返回，
+	如果多次同一个容器的iterator方法，那么返回的迭代器对象也不一样，迭代器的指针也互不相干
+
+5.其他：
+	boolean retainAll(Collection coll):取交集，两集合相同内容保留，将不同内容删除
+	Object[] toArray():将集合转成数组
+
+6.直接打印Collection类的对象，就是将对象里的内容（一般是字符串）全部打印出来

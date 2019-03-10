@@ -1,0 +1,31 @@
+一、泛型的通配符：<?>
+问好就是泛型的通配符，当不明确传入的泛型类型的时候就用泛型通配符，示例如下：
+public static void printCollection(Collection<?> al){		//自定义的方法
+	Iterator<?> it = al.iterator();
+	while(it.hasNext()){
+		System.out.println(it.next());
+	}
+}
+
+二、泛型上限：<? extends E>
+如此定义了泛型上线之后，泛型接收的只能是E类型或E类型的子类，示例如下：
+public static void printCollection(Collection<? extends Person> al){
+	Iterator<? extends Person> it = al.iterator();
+	while(it.hasNext()){
+		Person p=next();
+		System.out.println(p.getName()+":"+getAge());
+	}
+}
+
+什么时候使用下限？一般在存储元素的时候都用下限，因为这样取出都是按照上限类型来运算的，不会出现安全隐患
+
+三、泛型下限：<? super E>
+如此定义，只能接收E类型或E类型的父类型，示例如下：
+public static void printCollection(Colletion<? super Student> al){
+	Iterator<? super Student> it=al.iterator();
+	while(it.hasNext()){
+		System.out.println(it.next());
+	}
+}
+
+什么时候使用下线？通常对集合中的元素进行取出操作的时候，可以使用下限

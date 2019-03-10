@@ -1,0 +1,20 @@
+虚拟机增强：
+1.wmware菜单--虚拟机--安装WMware的增强工具
+2.自动在cdrom中加入linux.iso文件，并自动打开光驱
+3.复制光驱中的VMwareTools-993.xxx.tar.gz文件到ubuntu桌面中
+4.右键点击tar.gz文件，选择extract here
+5.在桌面上生成Vmware tool文件夹
+6.打开ubuntu终端程序（Terminal）
+7.进入桌面文件夹
+	cd ~/Desktop
+8.执行WmwareInstall.pl		//先进入解压出来的文件目录下
+	$>sudo ./vmwareInstall.pl
+9.一路回车
+--------------------------------------------------------------
+设置虚拟机：
+1.增加内存容量
+2.设置屏幕分辨率为宿主机分辨率
+3.启用复制粘贴
+4.共享文件夹
+	设置--共享文件夹--总是启用--添加共享目录
+	ubuntu终端下	cd /mnt/hgfs/		//里面就有指定的共享目录

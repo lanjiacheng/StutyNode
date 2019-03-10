@@ -1,0 +1,39 @@
+一、对一个类进行功能增强，有两种办法：
+1.继承
+2.装饰设计模式
+
+二、继承示例：
+
+class Person extends Object{
+	public void chifan(){
+		System.out.println("吃饭");
+	}
+}
+
+class NewPerson extends Person{
+	public void chifan(){		//覆盖并增强功能
+		System.out.println("开胃酒");
+		super.chifan();			//调用父类方法
+		System.out.println("甜点");
+	}
+}
+
+三、装饰设计模式示例：
+
+class NewPerson extends Object{
+	private Person p;
+	NewPerson(Person p){
+		this.p=p;
+	}
+	public void chifan(){		//增强功能
+		System.out.println("开胃酒");
+		p.chifan();		//调用已具有的对象方法
+		System.out.println("甜点");
+	}
+}
+
+四、两者区别：
+
+1.装饰比继承灵活
+
+2.特点：装饰类和被装饰类都必须所属同一个接口或者父类

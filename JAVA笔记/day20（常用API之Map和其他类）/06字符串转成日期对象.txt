@@ -1,0 +1,16 @@
+将日期格式的字符串转换成日期对象，怎么弄？
+
+使用的是DateFormat类中的parse()方法
+
+示例如下：
+
+String str_date = "2012年4月19日";
+DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+Date date = dateFormat.parse(str_date);
+System.out.println(date);
+
+//自定义字符串格式
+str_date = "1998---2---17";
+dateFormat = new SimpleDateFormat("yyyy---MM---dd");
+Date date = dateFormat.parse(str_date);
+System.out.println(date);

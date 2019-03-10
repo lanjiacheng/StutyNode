@@ -1,0 +1,6 @@
+有3个组合如下：
+1.try catch finally
+
+2.try catch(可有多个)  当没必要释放资源时，可以不定义finally
+
+3.try finally 异常无法直接catch处理，但是资源需要关闭

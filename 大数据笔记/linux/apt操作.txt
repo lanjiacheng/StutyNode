@@ -1,0 +1,8 @@
+dpkg -l			//查看已安装的软件
+apt-cache search gedit		//查找需要安装的软件，从软件源查找
+apt-get install gedit		//安装gedit,这种安装方式是打散的，就是配置文件放/etc,执行文件放/bin
+apt-get remove gedit		//删除或卸载gedit
+apt-get purge gedit		//丢弃gedit的配置文件
+apt-get download gedit		//下载gedit软件包到当前目录，不安装
+sudo apt-get update		//检索更新最新软件源列表
+sudo apt-get upgrade		//升级软件包

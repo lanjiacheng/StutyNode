@@ -1,0 +1,8 @@
+该方法返回一个Collection对象，该对象包含了Map中的所有值（记住，只有值，没有键）
+那么该方法如何让使用？演示如下：
+Collection<String> values = map.values();
+
+Iterator<String> it = values.iterator();//获取迭代器
+while(it.hasNext()){
+	System.out.println(it.next());	//通过迭代器，迭代出所有元素（Map所有值）
+}

@@ -1,0 +1,27 @@
+一、SequenceInputStream概述：
+该流可以封装多个字节输入流，并依次调用各个流的读取方法将各个流关联的文件内容读取到一个容器中
+
+二、构造方法及其示例：
+
+1.构造方法需要传入一个包含FileInputStream对象的枚举对象
+
+2.示例：
+
+ArrayList<FileInputStream> al = new ArrayList<FileInputStream>();
+al.add(new FileInputStream("1.txt"));
+al.add(new FileInputStream("2.txt"));
+al.add(new FileInputStream("3.txt"));
+Enumeration<FileInputStream> en = Colletions.enumeration(al);
+SequenceInputStream sis = new SequenceInputStream(en);
+}
+
+三、应用实例：
+
+FileOutputStream fos = new FileOutputStream("4.txt");
+byte[] buf = new byte[1024];
+int len = 0;
+while((len=sis.read(buf))!=-1){
+	fos.write(buf,0,len);
+}
+fos.close();
+sis.close();

@@ -1,0 +1,17 @@
+distcp
+-------------
+	1.通过hadoop mr技术实现并行复制，递归复制文件夹，性能较高，可以实现跨集群复制
+	2.使用方法
+		$>hadoop distcp /user/ljc/data /user/ljc/new/		//同一个集群中
+		$>hadoop distcp hdfs://s100:8020/user/ljc/data/ hdfs://183.xx.xx.xx.xx:8020/user/ljc/new/	//不同集群中
+
+归档
+--------------
+	1.java
+		jar	//java archieve
+	
+	2.hadoop
+		har	//hadoop archive
+		$>hadoop archive -archiveName new.har -p /user/ljc/new /user/ljc
+	注：将/user/ljc/new 目录归档为 /user/ljc/下面的new.har文件
+		$>hadoop fs -lsr har:///user/ljc/new.har	//递归查看归档文件目录内容

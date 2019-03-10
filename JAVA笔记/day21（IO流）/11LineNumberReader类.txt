@@ -1,0 +1,11 @@
+代码示例如下：
+
+FileReader fr = new FileReader("IO流_2.txt");
+LineNumberReader lnr = new LineNumberReader(fr);
+
+String line = null;
+lnr.setLineNumber(100);		//设置当前行号为100行，行号只是行号，与输出无关，行号可为付
+while((line=lnr.readLine())!=null){		//按行读取
+	System.out.println(lnr.getLineNumber()+":"+line);	//输出行号加内容，行号从当前开始递增
+}
+lnr.close();

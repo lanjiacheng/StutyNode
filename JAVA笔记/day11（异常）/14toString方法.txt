@@ -1,0 +1,10 @@
+Object类中的toString()方法实际上就是以下代码：
+toString()
+{
+	return(getClass().getName()+"@"+Integer.toHexString(hashCode()));
+}
+
+一般创建类时都会覆盖的方法有：equals(),toString(),hashCode();
+
+直接调用hashCode()返回的是十进制的地址值
+调用toString()返回的是十六进制的地址值

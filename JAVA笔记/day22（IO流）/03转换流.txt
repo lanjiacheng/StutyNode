@@ -1,0 +1,11 @@
+//先获取键盘输入的字节输入流，再将字节流转换成字符流，再将字符流装饰成带缓冲区的字符流
+BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
+//先获取屏幕输出的字节输出流，再将字节流转换成字符流，再将字符流装饰成带缓冲区的字符流
+BufferedWriter bufw = new BufferedWriter(new OutputStreamWriter(System.out));
+String line =null;
+while((line=bufr.readLine())!=null){
+if("over".equals(line))
+	break;
+bufw.write(line.toUpperCase());		//将小写转换成大写然后输出
+bufw.newLine();	//此处换行
+bufw.flush();	//因为是字符流缓冲区，所以需要刷新

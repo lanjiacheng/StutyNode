@@ -1,0 +1,92 @@
+	$>hadoop fs -mkdir -p /user/ubuntu	//创建目录 -p  多级目录
+	$>hadoop fs -ls /			//显示根目录
+	$>hadoop fs -ls -R /			//递归显示目录结构
+	$>hadoop fs -lsr /			//同上
+	$>hadoop fs				//查看帮助
+	$>hadoop fs -help cmd			//查看指定命令的帮助
+	$>hadoop fs -put hello.txt /user/ubuntu/	//放文件到hdfs的指定目录
+	$>hadoop fs -get /user/ubuntu/hello.txt bb.txt	//从hdfs的指定目录下载文件到本地
+	$>hadoop fs -ls file:/			//列出本地系统的文件系统
+	$>hadoop fs -help			//查看帮助
+	$>hadoop fs -help xxx			//查看帮助
+	$>hadoop fs copyFromLocal		//同等于 -put
+	$>hadoop fs copyToLocal			//同等于 -get
+	$>hadoop fs moveFromLocal		//移动本地文件到分布式文件系统上
+	$>hadoop fs moveToLocal			//从分布式文件系统移动文件到本地
+	$>hadoop fs -cat			//查看
+	$>hadoop fs -cp				//复制
+	$>hadoop fs -count			//统计信息,目录，文件，字节数
+	$>hadoop fs -appendToFile name.txt /user/ljc/data/hello.txt	//将name文件的内容追加到hello.txt中
+	$>hadoop fs -truncate -w 5 /user/ubuntu/data/hello.txt	//将文本内容按指定字符数截断
+	$>hadoop fs -chmod a+w /user/ljc/data	//修改文件或目录的权限
+-------------------------------------------------------------------------------------------------
+	$>hadoop-daemons.sh start datanode	//启动数据结点进程（在名称结点上执行）
+	$>hadoop-daemon.sh start datanode	//启动单个数据节点（在指定的数据节点上执行）
+-------------------------------------------------------------------------------------------------
+配置windows下的host
+C:\Windows\System32\drivers\etc\host
+-------------------------------------------------------------------------------------------------
+通过webui查看日志或集群情况
+	http://namenode:50070/		//namenode
+	http://localhost:8088/		//resourceManager，只能本机访问，hadoop集群信息
+	http://hs:19888/		//historyServer
+	hdfs://namenode:8020/		//name roc(remote procedure call，远程调用)
+	http://ubuntu-02:8042/logs	//查看数据节点日志
+
+--------------------------------------------------------------------------------------------------
+
+安全模式
+---------------
+	1.namenode启动时，合并image和edit成新的image，并产生新的edit log
+	2.整个过程处于safe模式下，客户端只能读取
+	2.namenode安全模式下操作：
+		$>hdfs dfsadmin -safemode get		//查看
+		$>hdfs dfsadmin -safemode enter		//进入
+		$>hdfs dfsadmin -safemode leave		//离开
+		$>hdfs dfsadmin -safemode wait		//等待，堵塞直到安全模式关闭
+	3.手动保存名字空间
+		$>hdfs dfsadmin -saveNamespace		//保存合并edit文件
+	4.手动保存镜像文件到本地目录
+		$>hdfs dfsadmin -fetchImage
+	5.保存元数据到本地目录，该元数据文件在{hadoop_home}/logs/
+		$>hdfs dfsadmin -metasave xxx.metadata
+	6.start-balancer.sh
+		启动均衡器，让集群在数据存储上更加平均，提高整个集群的性能
+-----------------------------------------------------------------------------------------------
+
+快照
+--------
+	1.开启快照功能（目录默认不能快照）
+		hdfs dfsadmin -allowSnapshot /user/ubuntu/data			//开启快照功能
+	2.创建快照
+		hadoop fs [-createSnapshot <snapshotDir> [<snapshotName>]]	//创建快照
+	3.禁用快照
+		hdfs dfsadmin -disallowSnapshot /user/ubuntu/data
+	hadoop fs [-deleteSnapshot <snapshotDir> [<snapshotName>]]	//删除快照
+	hadoop fs [-renameSnapshot <snapshotDir> <oldName> <newName>]	//重命名快照
+	hadoop fs [-allowSnapshot <snapshotDir>]			//允许目录快照
+	hadoop fs [-disallowSnapshot <snapshotDir>]			//禁用快照
+
+回收站
+-----------
+	1.存放回收站时间默认是0秒，意味着禁用回收站
+	2.设置文件在回收站的驻留时间
+		[core-site.xml]
+		fs.transh.interval=1	//单位是分钟
+	3.通过shell命令删除的文件，会进入回收站
+	4.每个用户户都有自己的回收站，目录：
+		/user/ubuntu/.Trash	//hdfs下的目录
+	5.编程方式删除不进入回收站，立即删除，若想走回收站，可调用：
+		moveToTrash()方法，返回false，说明禁用回收站或者已在站中
+	6.清空回收站
+		hadoop fs -expunge	//只将超过驻留时间的文件删掉
+
+配额
+-------------
+目录配额：
+	1.hdfs dfsadmin -setQuota 2 /user/ubuntu/data
+	2.给指定目录配额，就是设置该目录能放多少元素（文件夹和文件），1就是不能放，2是能放一个，因为它本身是一个元素
+
+空间配额：
+	1.hdfs dfsadmin -setSpaceQuota 20 /user/ubuntu/data/day
+	2.各指定目录空间配额，就是设置该目录一共能放多少大的文件，默认单位是字节，可指定k,m,g,t等单位

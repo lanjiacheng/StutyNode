@@ -1,0 +1,10 @@
+重载的概念：
+在同一个类中，允许存在一个以上的同名函数，只要它们的参数个数或者参数类型不同即可
+
+重载的特点：
+能否重载与返回类型无关，只看参数列表
+
+重载的示例：
+int add(int a,int b);
+int add(int a,int b,int c);
+double add(double a,double b);

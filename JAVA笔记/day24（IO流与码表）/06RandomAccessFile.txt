@@ -1,0 +1,39 @@
+一、特点：
+1.该类对象既能读又能写
+2.该对象内部维护了一个byte数组，并通过指针可以操控数组中的元素
+3.可以通过getFilePointer方法获取指针的位置，和通过seek方法这只指针的位置
+4.其实对象就是将字节输入流和输出流进行封装
+5.该对象的源或目的只能是文件
+
+二、示例：
+
+写：
+//如果文件不存在，则创建，存在则不创建
+RandomAccessFile raf = new RandomAccessFile("ranacc.txt","rw");	//也可以用File创建，后面的参数有如：
+								//r,rw,rws,rwd，用来控制读写权限
+raf.write("张三".getBytes());	//将字符串变成字节数组在写入，如果不是字节数组，一次只写单个字节
+raf.writeInt(97);	//一次写4字节（0 0 0 97）
+raf.write("小强".getBytes());
+raf.writeInt(99);
+raf.close();
+
+读：
+RandomAccessFile raf = new RandomAccessFile("ranacc.txt","r");
+raf.seek(8);	//通过seek设置指针位置，随机读取，只要指定指针的位置即可
+byte[] buf = new byte[4];
+raf.read(buf);
+String name = new String(buf);
+int age = raf.readInt();	//上次读取后，指针自动下移，一次读4字节
+System.out.println("name:"+name);
+System.out.println("age:"+age);
+System.out.println("pos:"+raf.getFilePointer());	//获取并打印指针位置
+raf.close();
+
+三、几点说明如下：
+1.该类的write方法一次可以写入一个字节或一个字节数组，写入字符串一般先把字符串转换成数组
+
+2.write写入的位置可以通过seek来设置指针然后控制写入的位置，因而达到不覆盖前面的内容就写入添加的内容的目的
+
+3.当需要多线程往一个文件写入数据的时候，或者断点文件下载上传往往需要RandomAccessFile对象
+
+4.该对象一旦创建就会读取所有文件内容并将内容存放到一个字节数组中以便操作

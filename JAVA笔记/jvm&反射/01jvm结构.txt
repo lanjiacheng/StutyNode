@@ -1,0 +1,18 @@
+一、JVM：
+1.JVM:java virtual machine
+2.class file
+	*.class
+3.ClassLoader
+4.runtime data area
+	运行时数据
+	1.Method area : 方法区(shared:供所有线程)
+	2.heap : 堆(shared:所有线程)
+	3.java stack : 栈区(独占)
+	4.native method stack : 本地方法区(独占)
+	5.Program counter register : 程序计数器(独占)
+5.execute engine : 执行引擎
+6.bative interface : 本地接口
+7.native libraries : 本地类库
+
+二、jvm检测器
+bin/jvisualvm

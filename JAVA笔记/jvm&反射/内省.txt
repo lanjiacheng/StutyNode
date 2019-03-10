@@ -1,0 +1,34 @@
+package introspector;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.MethodDescriptor;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+public class IntrospectorDemo {
+
+	public static void main(String[] args) throws IntrospectionException, Exception, IllegalArgumentException, InvocationTargetException {
+		//属性演示：
+		BeanInfo bif=Introspector.getBeanInfo(BigStudents.class);
+		PropertyDescriptor[] pds=bif.getPropertyDescriptors();	//调用bean描述对象的方法，获取该类的属性集合，属性包括本类和父类的公共和私有
+		for(PropertyDescriptor pd:pds){
+			System.out.println(pd.getName());
+		}
+		Method m0=pds[2].getWriteMethod();	//获取属性设置方法
+		BigStudents bstu=new BigStudents();
+		m0.invoke(bstu, "");
+		System.out.println(bstu.getAge());
+		
+		//方法演示：
+		MethodDescriptor[] mdps=bif.getMethodDescriptors();
+		for(MethodDescriptor md:mdps){
+			System.out.println(md.getName()); 		//获取类中所有方法的描述，包括父类的，包括公共的和私有的
+		}
+		Method m1=mdps[0].getMethod();
+
+	}
+
+}

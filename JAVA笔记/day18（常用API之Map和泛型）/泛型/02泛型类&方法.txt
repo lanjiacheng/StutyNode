@@ -1,0 +1,30 @@
+一、
+jdk1.5后，使用泛型来接收类中要操作的引用数据类型
+泛型类，什么时候用？当类中操作的引用数据类型不确定的时候，就使用泛型来表示，没泛型时，默认Object
+泛型方法，什么时候用？当方法操的引用类型不确定的时候，就用泛型方法，也就是将泛型定义在方法上
+
+二、示例：
+public class Tool<QQ>{		//将泛型定义在类上
+	private QQ q;
+	public QQ getObject(){
+		return q;
+	}
+	public void setObject(QQ object){
+		this.q=object;
+	}
+	public <W> void show(W w){		//将泛型定义在方法上，但是不能直接使用泛型特有方法
+		System.out.println(w);
+	}
+	public static <Y> void method(Y y){		//如果方法是静态的，不能用类上定义的泛型，只能将
+							//泛型定义在自己的方法声明上
+		System.out.println(y);
+	}
+}
+
+public class Demo{
+	Tool<Person> t=new Tool<Person>();
+	t.setObject(new Person());
+	Person p=t.getObject();
+	t.show("abc");		//因为是泛型方法，会根据传入的引用数据类型进行操作
+	Tool.method("efg");
+}

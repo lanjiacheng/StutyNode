@@ -1,0 +1,37 @@
+package JDBC;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.JDBCType;
+
+
+/*
+ * 使用CallableStatement
+ */
+public class TestProcedure {
+
+	public static void main(String[] args) throws Exception {
+		String driver ="com.mysql.jdbc.Driver";
+		Class.forName(driver);
+		String url="jdbc:mysql://localhost:3306/mybase";
+		String username="root";
+		String password="ljc19980217.";
+		Connection conn=DriverManager.getConnection(url,username,password);
+		//获取存储过程对象
+		CallableStatement cst=conn.prepareCall("{call procAdd(?,?,?)}");
+		//调用存储过程，并传入参数
+		cst.setInt(1, 1);
+		cst.setInt(2, 2);
+		//注册输出类型
+		cst.registerOutParameter(3, JDBCType.INTEGER);
+		cst.execute();
+		int i=cst.getInt(3);
+		System.out.println(i);
+		cst.close();
+		conn.close();
+		
+
+	}
+
+}

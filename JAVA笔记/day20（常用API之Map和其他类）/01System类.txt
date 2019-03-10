@@ -1,0 +1,19 @@
+一、
+System类中的方法和属性都是静态的
+
+二、常见方法：
+1.long currentTimeMillis():获取当前时间的毫秒值
+
+2.Properties getProperties():获取系统信息，并存储到Properties集合中
+
+获取并打印系统信息的代码示例：
+
+Properties prop = System.getProperties();
+Set<String> nameSet = prop.stringPropertyNames();
+for(String name : nameSet){
+	String value = prop = System.getProperty(name);
+	System.out.println(name+":"+value);
+}
+
+获取系统平台对应换行符方法：
+System.getProperty("line.separator");

@@ -1,0 +1,30 @@
+git config --global user.name "xxx"	//设置用户名
+git config --global user.email "xxx"	//设置用户邮箱
+git init				//项目主目录下，创建并初始化仓库
+git add dir/file			//添加待提交的修改了的文件或目录
+git add .				//添加所有
+git commit -m "msg"			//提交已添加的修改并给该提交记录添上注释
+					//这个提交不可以再撤销
+git status				//查看状态，其中包括那些文件修改未添加(staged)
+					//和修改并已添加
+git diff				//查看修改未添加的文件的详细修改信息，已添加的
+					//修改不会显示，其后可以加路径
+git checkout dir			//撤销修改，使文件变为修改前内容，只能撤销未添
+					//加的文件，如果已添加，需要reset
+					//此后该文件的修改信息可以再git diff命令中显示
+git reset HEAD dir			//撤销已添加的文件，变回添加之前的状态
+git log					//查看所有提交记录
+git log id -1 -p			//查看指定提交记录的详细内容
+
+git branch				//查看当前版本库中有哪些分支
+git branch version1.0			//添加一个名为version1.0的分支
+git checkout version1.0			//把代码切换到version1.0这个版本上
+git merge version1.0			//将version1.0这个版本修改并提交的内容合并到当前版本中
+git branch -D version1.0		//删除version1.0这个版本
+
+git clone https://github.com/example/test.git	//下载远程版本库到本地
+git push origin master			//将本地代码同步到远程版本库
+git fetch origin master			//将远程库代码同步到本地，放到origin/master分支上
+git diff origin/master			//查看刚同步的远程代码修改了什么
+git merge origin/master			//合并下载的代码到当前版本
+git pull origin master			//下载并合并

@@ -1,0 +1,47 @@
+this关键字：
+特点：this代表其所在函数所属对象的引用
+换言之：this代表类对象的引用
+再换言之：那个对象调用this所在函数，this就代表那个对象
+
+使用场景：
+1.当成员变量和局部变量重名时，可以用this来区分
+2.其实在对象的函数中调用成员变量时，即使成员变量和局部变量不重名，也需要
+用this来指定调用的是该对象的成员变量，只是当不重名时，this关键字可以省略。
+3.当在一个类中有多个构造方法时，需要在一个构造方法中调用另一个构造方法，
+可以使用this关键字来调用，但是：this调用语句必须在构造函数中的第一句！
+
+一个this关键字的示例：
+1.在构造方法中使用：
+class Person
+{
+	private String name;
+	Person(String name)
+	{
+		this.name=name;	//this.name代表的是对象中的成员变量name
+				//name代表的是方法中的name
+	}
+	public static void speak()
+	{
+		System.out.println((this.)name);// this可以省略
+	}
+}
+2.在构造方法中调用另一个构造方法：
+class Person
+{
+	String name;
+	int age;
+	Person(String name)
+	{
+		this.name=name;
+	}
+	Person(String name,int age)
+	{
+		this(name);	//此处通过this来调用其他相应构造函数，且
+				//this语句必须在构造函数中第一个语句的位置
+		this.age=age;
+	}
+}
+
+关于this的一些说明：
+1.一个类中的任何非静态成员或方法的调用都需要用对象来引用，也就是说，同一
+个类中调用同类中的方法或成员都需要this。

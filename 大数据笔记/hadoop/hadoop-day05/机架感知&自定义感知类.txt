@@ -1,0 +1,60 @@
+rack aware
+-------------
+	1.机架感知
+		保证在交换机故障或者集群内部时间问题出现时，数据仍然可用
+	2.编写一个脚本或者实现接口org.apache.hadoop.net.DNSToSwitchMapping
+		返回数据格式如："/myrack/myhost"
+-------------------------------------------------------------------------------------------
+package com.ljc.myhadoop272;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MyDNSToSwitchMapping implements org.apache.hadoop.net.DNSToSwitchMapping {
+
+	/*
+	 * 解析主机名/ip地址，返回网络路径/xx/xxx
+	 */
+	public List<String> resolve(List<String> names) {
+		List<String> paths = new ArrayList<String>();
+		// 判断集合有效性
+		if (names != null && !names.isEmpty()) {
+			System.out.println(names.size() + " : " + names.get(0));
+			for (String hostname : names) {
+				// 取出hostname后面的编号
+				Integer no = Integer.parseInt(hostname.substring(8));
+				String rackPath = "";
+				if (no <= 3) {
+					rackPath = "/rack1/" + hostname;
+				} else {
+					rackPath = "/rack2/" + hostname;
+				}
+				paths.add(rackPath);
+			}
+		}
+		return paths;
+	}
+
+	@Override
+	public void reloadCachedMappings() {
+	}
+
+	@Override
+	public void reloadCachedMappings(List<String> names) {
+	}
+
+}
+-----------------------------------------------------------------------------------------
+
+	
+	3.将自定义的机架感知类打成jar包，分发到所有节点的${hadoop_home}/share/xxx/xx
+
+	4.配置类，指定自定义类名
+		topology.node.switch.mapping.impl
+	[core-site.xml]
+	<property>
+		<name>net.topology.node.switch.mapping.impl</name>
+		<value>com.ljc.myhadoop272.MyDNSToSwitchMapping</value>
+	</property>
+	
+	5.重启集群

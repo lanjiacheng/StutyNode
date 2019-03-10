@@ -1,0 +1,42 @@
+一、配置客户端的静态ip
+-----------------------------
+	要求：IP网段 | 网关 | 子网掩码
+	1.查看网关
+		vmware虚拟机 --> 编辑菜单 --> 打开窗口 --> 选中wmnet8虚拟网卡 --> nat设置 --> 查看网关
+	2.查看可用的IP网段
+		vmware虚拟机 --> 编辑菜单 --> 打开窗口 --> 选中wmnet8虚拟网卡 --> DHCP设置 --> 查看网段
+	3.挑选一个可用的ip
+	4.配置ubuntu的静态ip
+		a. sudo nano /etc/network/interfaces
+			[/etc/network/interfaces]
+			# The loopback ...
+			auto lo
+			iface lo inet loopback
+
+			#iface eth0 ...
+			iface eth0 inet static
+			address 192.168.238.128
+			netmask 255.255.255.0		#子网掩码
+			gateway 192.168.238.2		#网关
+			dns-nameservers 192.168.238.2	#网关
+			auto eth0
+
+		b.重启网卡
+			$>sudo /etc/init.d/networking restart
+
+二、客户端关机命令
+--------------------------------
+	1.sudo poweroff
+	2.sudo shutdown -h 0
+	3.sudo halt
+
+三、配置ubuntu文本启动模式
+---------------------------------
+	1.sudo nano /etc/default/grub
+		GRUB_CMDLINE_LINUX_DEFAULT="text"	//改成text
+		GRUB_TERMINAL=console			//打开该注释
+	2.让该改动生效
+		$>sudo update-grub
+	3.sudo reboot
+	4.在文本模式下，启动图形界面
+		$>sudo startx

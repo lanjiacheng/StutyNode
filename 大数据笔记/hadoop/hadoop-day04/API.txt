@@ -1,0 +1,13 @@
+通过API访问hdfs
+----------------------
+	1.java.net.URL
+		a.在Ubuntu下打开eclipse
+		b.创建项目
+		c.导入hadoop所有jar包
+		d.编写代码（参见demo_1.txt）
+		e.添加log4j.properties
+			[src/log4j.properties]
+
+通过API访问hdfs文件信息等操作
+-----------------------
+	1.代码参见demo_2.txt

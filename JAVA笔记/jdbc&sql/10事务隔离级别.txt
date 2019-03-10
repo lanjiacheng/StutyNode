@@ -1,0 +1,29 @@
+一、事务并发执行时，会发生以下情况：
+1.脏读，读脏
+	读未提交（读了别人没有提交的信息）
+2.不可重复读
+	读不回去，有其他事务做了update
+3.幻读
+	读多了，读要一次后，别的事务做了插入，再读时发现读多了
+
+二、事务的隔离级别
+1--读未提交，可能导致脏读、不可重复读、幻读
+2--读已提交，避免脏读，不可重复读、幻读还能发生
+3--可以重复读，避免脏读和不可重复读，幻读还能发生
+4--串行化，不能并发
+
+查询事务隔离级别：
+select @@session.tx_isolation;		--会话隔离级别，就是当前连接
+select @@global.tx_isolation;		--全局级别，就是此链接外的所有连接
+
+设置事务隔离级别：
+set transaction isolation|global level read committed;
+
+等级		对应值
+1		read uncommitted
+2		read committed
+4		repeatable read
+8		serializable
+
+三、java程序：
+conn.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
